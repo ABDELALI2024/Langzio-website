@@ -1,0 +1,29 @@
+{
+  "packageName": "com.langzio.app",
+  "host": "langzio.com",
+  "fallbackType": "customtabs",
+  "features": {
+    "locationDelegation": "disabled"
+  },
+  "enableNotifications": true,
+  "appVersion": "1",
+  "launchUrl": "/m/dashboard.php",
+  "appVersionCode": 1,
+  "webManifestUrl": "https://langzio.com/m/manifest.php",
+  "trustedOrigin": "https://langzio.com",
+  "icon": "https://langzio.com/m/assets/icons/icon-512.png",
+  "maskableIcon": "https://langzio.com/m/assets/icons/icon-192.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "alias": "langzio",
+    "path": "./android-key.keystore"
+  },
+  "appName": "Langzio",
+  "shortName": "Langzio",
+  "displayMode": "standalone",
+  "themeColor": "#00a76f",
+  "backgroundColor": "#060b0a",
+  "orientation": "portrait",
+  "appVersionName": "1.0.0",
+  "includeSourceAppOnIntent": false
+}

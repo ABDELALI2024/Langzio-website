@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.langzio.app",
+    "sha256_cert_fingerprints": [
+      "CHANGE_ME_RUN_keytool -list -v -keystore android-key.keystore -alias langzio 2>&1 | grep SHA256"
+    ]
+  }
+}]

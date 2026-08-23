@@ -1,0 +1,9 @@
+-- Langzio Test Data
+-- Uncomment and run in phpMyAdmin AFTER importing schema.sql
+-- Password for test user: test1234 (bcrypt hash)
+--
+-- INSERT INTO users (name, email, password, email_verified_at, created_at)
+-- VALUES ('Test User', 'test@langzio.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NOW());
+--
+-- INSERT INTO subscriptions (user_id, plan, status, trial_ends_at)
+-- VALUES (1, 'trial', 'active', DATE_ADD(NOW(), INTERVAL 7 DAY));

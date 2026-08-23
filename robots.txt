@@ -1,0 +1,58 @@
+# Langzio Robots.txt
+# Allows crawling of public SEO content while protecting private application routes
+
+User-agent: *
+Allow: /
+
+# Disallow private/auth/admin routes
+Disallow: /login.php
+Disallow: /register.php
+Disallow: /logout.php
+Disallow: /verify-email.php
+Disallow: /dashboard.php
+Disallow: /translator.php
+Disallow: /chat.php
+Disallow: /guides.php
+Disallow: /kids.php
+Disallow: /profile.php
+Disallow: /pricing.php
+Disallow: /api.php
+Disallow: /api/
+Disallow: /cron/
+Disallow: /data/
+Disallow: /classes/
+Disallow: /includes/
+Disallow: /assets/js/
+Disallow: /assets/css/
+Disallow: /info.php
+Disallow: /status.php
+Disallow: /track.php
+Disallow: /seed.php
+Disallow: /.env
+Disallow: /.git
+Disallow: /*.json$
+
+# Allow AI search crawlers explicitly
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Sitemap
+Sitemap: https://langzio.com/sitemap.xml
