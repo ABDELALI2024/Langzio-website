@@ -109,7 +109,7 @@ Langzio is a cultural language intelligence platform for Moroccan Darija (Morocc
 
 ## Methodology
 **URL:** https://langzio.com/about/methodology/ (planned)
-**Description:** How Langzio works: RAG (Retrieval-Augmented Generation) grounded in verified phrase corpus → Llama 3.3 70B (via Groq) → Structured output format (Darija, Pronunciation, Meaning, Tone, Context, Avoid, Tip). Native speaker validation process. Correction workflow.
+**Description:** How Langzio works: verified phrase corpus → local structured output format (Darija, Pronunciation, Meaning, Tone, Context, Avoid, Tip). Native speaker validation process. Correction workflow.
 
 ## Language Data
 **Verified Phrase Corpus:** 28+ curated phrases across 6 categories (Basics, Restaurant, Souk, Taxi, Family, Travel)

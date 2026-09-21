@@ -29,7 +29,6 @@ phpMyAdmin → select DB → Import → `database/schema.sql`.
 ## 7. Create `.env`
 File Manager → `public_html/.env` (copy structure from `.env.example`, fill real values):
 ```
-GROQ_API_KEY=
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=
@@ -59,8 +58,8 @@ Advanced → Cron Jobs → daily:
 Replace `uXXXX` with your Hostinger username. HTTP access requires `?key=CRON_SECRET`; CLI needs no key. Empty `CRON_SECRET` denies HTTP.
 
 ## 10. Test `/status.php`
-Visit `https://langzio.com/status.php` → expect `{"ok":true,"api_ready":true}`.
-It exposes nothing else (no paths, no keys, no model name).
+Visit `https://langzio.com/status.php` → expect `{"ok":true,"mode":"local"}`.
+It exposes nothing else (no paths, no keys).
 
 ## 11. Test `/translator/`
 Pretty URL → serves `translator.php` internally (POST preserved). Try a translation; check structured output renders.
@@ -74,8 +73,8 @@ Register → login → dashboard → logout. Trial banner shows days remaining. 
 ## 14. Test database
 Register a user → check `users` + `subscriptions` rows (trial 7 days). Update WhatsApp number in profile → check `users.whatsapp_*` columns.
 
-## 15. Test Groq API
-With valid `GROQ_API_KEY`: `POST /api.php` `{"mode":"translate","text":"hello"}` → JSON reply, `mock:false`. With missing key: demo fallback reply, `mock:true`. Key never appears in JS/network (backend-only call).
+## 15. Test local answers (no external AI)
+`POST /api.php` `{"mode":"translate","text":"hello"}` → JSON reply built from the verified corpus, `mock:true`, `rag_used` flag. No key ever appears in JS/network — all answers are generated server-side from local data.
 
 ## 16. Delete debug files
 From `public_html/` delete: `info.php`, `seed.php` (if uploaded), `*.zip`.

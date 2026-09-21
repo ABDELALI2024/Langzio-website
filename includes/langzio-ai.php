@@ -107,49 +107,34 @@ function langzio_rate_limit_check(int $maxPerHour = 60): void
     file_put_contents($file, json_encode($hits), LOCK_EX);
 }
 
-function langzio_call_ai(array $messages, float $temperature = 0.4): array
+// Local mode — no external AI provider. Replies are built from the
+// verified phrase corpus (langzio_rag_context) plus generic guidance.
+
+function langzio_local_chat_reply(string $userText, string $ragContext): string
 {
-    $requestBody = [
-        "model" => OPENAI_MODEL,
-        "messages" => $messages,
-        "temperature" => $temperature,
-    ];
-
-    $ch = curl_init(OPENAI_API_URL);
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST => true,
-        CURLOPT_HTTPHEADER => [
-            "Content-Type: application/json",
-            "Authorization: Bearer " . OPENAI_API_KEY,
-        ],
-        CURLOPT_POSTFIELDS => json_encode($requestBody),
-        CURLOPT_TIMEOUT => 30,
-    ]);
-
-    $response = curl_exec($ch);
-    $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $curlError = curl_error($ch);
-    curl_close($ch);
-
-    if ($curlError) {
-        return ["ok" => false, "error" => "AI service unavailable"];
+    $lines = [];
+    $lines[] = "Salam! Voici ce que je peux vous dire en mode local.";
+    if ($ragContext !== "") {
+        $lines[] = "";
+        $lines[] = $ragContext;
     }
+    $lines[] = "";
+    $lines[] = "Start with \"Salam\" and use \"3afak\" to soften requests.";
+    $lines[] = "Browse Guides and Kids flashcards for verified phrases.";
+    return implode("\n", $lines);
+}
 
-    $decoded = json_decode((string) $response, true);
-    if ($httpCode >= 400 || !is_array($decoded)) {
-        $providerMsg = $decoded["error"]["message"] ?? "Provider returned status $httpCode";
-        return ["ok" => false, "error" => $providerMsg];
+function langzio_local_translate_reply(string $userText, string $source, string $target, string $ragContext): string
+{
+    $lines = [];
+    $lines[] = "Local translation ({$source} → {$target}): {$userText}";
+    if ($ragContext !== "") {
+        $lines[] = "";
+        $lines[] = $ragContext;
     }
-
-    if (!isset($decoded["choices"][0]["message"]["content"])) {
-        return ["ok" => false, "error" => "Empty response from AI provider"];
-    }
-
-    return [
-        "ok" => true,
-        "content" => trim((string) $decoded["choices"][0]["message"]["content"]),
-    ];
+    $lines[] = "";
+    $lines[] = "Tip: start with \"Salam\" and add \"3afak\" to soften requests.";
+    return implode("\n", $lines);
 }
 
 function langzio_parse_structured_translation(string $raw): ?array
@@ -194,54 +179,3 @@ function langzio_format_structured_reply(array $structured): string
     return implode("\n", $lines);
 }
 
-function langzio_build_chat_messages(string $userText, array $history, string $ragContext): array
-{
-    $system = "You are Langzio AI — cultural language intelligence for Morocco and Darija.\n"
-        . "Be concise, practical, and warm. Prefer spoken Darija over formal MSA for everyday situations.\n"
-        . "When suggesting phrases, give Darija + brief English meaning + one etiquette note.\n"
-        . "Never invent fake user statistics. If unsure about regional slang, say so.";
-
-    if ($ragContext !== "") {
-        $system .= "\n\n" . $ragContext;
-    }
-
-    $messages = [["role" => "system", "content" => $system]];
-
-    foreach (array_slice($history, -8) as $turn) {
-        if (!is_array($turn)) {
-            continue;
-        }
-        $role = ($turn["role"] ?? "") === "user" ? "user" : "assistant";
-        $content = trim((string) ($turn["content"] ?? $turn["text"] ?? ""));
-        if ($content !== "") {
-            $messages[] = ["role" => $role, "content" => $content];
-        }
-    }
-
-    $messages[] = ["role" => "user", "content" => $userText];
-    return $messages;
-}
-
-function langzio_build_translate_messages(string $userText, string $source, string $target, string $ragContext): array
-{
-    $system = "You are Langzio Translator — expert in Moroccan Darija, French-in-Darija code-switching, and cultural context.\n"
-        . "Return ONLY valid JSON (no markdown) with keys:\n"
-        . "darija, pronunciation, meaning, register, context, avoid, tip\n"
-        . "darija = natural spoken phrase in target language\n"
-        . "pronunciation = simplified Latin pronunciation for learners\n"
-        . "meaning = English explanation\n"
-        . "register = polite/neutral/casual\n"
-        . "context = when to use it\n"
-        . "avoid = common mistake to avoid\n"
-        . "tip = one cultural note";
-
-    if ($ragContext !== "") {
-        $system .= "\n\nPrefer verified phrases below when they match. You may adapt slightly for the user's exact request:\n" . $ragContext;
-    }
-
-    $userPrompt = "Translate from {$source} to {$target}.\nUser text: {$userText}";
-    return [
-        ["role" => "system", "content" => $system],
-        ["role" => "user", "content" => $userPrompt],
-    ];
-}

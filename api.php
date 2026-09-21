@@ -57,57 +57,22 @@ if (preg_match('/[\x00-\x08\x0E-\x1F]|\.(png|jpg|jpeg|gif|bmp|webp|svg)/i', $use
     exit;
 }
 
-if (empty(OPENAI_API_KEY)) {
-    $fallback = $mode === "chat"
-        ? "Demo mode — add GROQ_API_KEY in .env on the server to enable real AI.\n\nFor now: start with \"Salam\" and use \"3afak\" to soften requests."
-        : "Demo translation ({$source} → {$target}): {$userText}";
-    echo json_encode(["reply" => $fallback, "mock" => true]);
-    exit;
-}
-
+// Local mode: answers come from the verified phrase corpus.
+// No external AI provider, no API keys.
 $ragContext = langzio_rag_context($userText);
 $ragUsed = $ragContext !== "";
 
 if ($mode === "chat") {
-    $messages = langzio_build_chat_messages($userText, $history, $ragContext);
-    $result = langzio_call_ai($messages, 0.5);
-
-    if (!$result["ok"]) {
-        http_response_code(500);
-        echo json_encode(["error" => $result["error"]]);
-        exit;
-    }
-
     echo json_encode([
-        "reply" => $result["content"],
-        "mock" => false,
-        "rag_used" => $ragUsed,
-    ]);
-    exit;
-}
-
-$messages = langzio_build_translate_messages($userText, $source, $target, $ragContext);
-$result = langzio_call_ai($messages, 0.3);
-
-if (!$result["ok"]) {
-    http_response_code(500);
-    echo json_encode(["error" => $result["error"]]);
-    exit;
-}
-
-$structured = langzio_parse_structured_translation($result["content"]);
-if ($structured !== null) {
-    echo json_encode([
-        "reply" => langzio_format_structured_reply($structured),
-        "structured" => $structured,
-        "mock" => false,
+        "reply" => langzio_local_chat_reply($userText, $ragContext),
+        "mock" => true,
         "rag_used" => $ragUsed,
     ]);
     exit;
 }
 
 echo json_encode([
-    "reply" => $result["content"],
-    "mock" => false,
+    "reply" => langzio_local_translate_reply($userText, $source, $target, $ragContext),
+    "mock" => true,
     "rag_used" => $ragUsed,
 ]);

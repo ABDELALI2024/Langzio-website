@@ -74,21 +74,14 @@ function langzio_env(string $key, string $default = ""): string
     return ($fromGetenv !== false && $fromGetenv !== "") ? (string) $fromGetenv : $default;
 }
 
-define("GROQ_API_KEY", langzio_env("GROQ_API_KEY"));
-define("GROQ_API_URL", "https://api.groq.com/openai/v1/chat/completions");
-define("GROQ_MODEL", "llama-3.3-70b-versatile");
-
-define("OPENAI_API_KEY", GROQ_API_KEY);
-define("OPENAI_API_URL", GROQ_API_URL);
-define("OPENAI_MODEL", GROQ_MODEL);
+// Langzio runs in local mode — no external AI provider.
+// Answers come from the verified phrase corpus (data/corpus.json),
+// guides, and kids flashcards. No API keys required.
+define("LANGZIO_AI_MODE", "local");
 
 define("LANGZIO_CANONICAL_DOMAIN", langzio_env("CANONICAL_DOMAIN", "https://langzio.com"));
 define("LANGZIO_SITE_NAME", "Langzio");
 define("LANGZIO_SITE_DESCRIPTION", "Cultural language intelligence for Moroccan Darija — AI translation, cultural chat, verified phrases, and family learning.");
-
-if (empty(GROQ_API_KEY)) {
-    error_log("Langzio: GROQ_API_KEY is not set. Create a .env file or set the env variable.");
-}
 
 // ─── Autoload core classes ─────────────────────────────
 $langzioClasses = __DIR__ . "/classes";
