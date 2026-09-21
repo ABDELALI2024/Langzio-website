@@ -1,4 +1,10 @@
 <?php
+// Langzio debug page — LOCAL ONLY. Blocked in production via .htaccess.
+// Defense-in-depth: refuse to run unless explicitly enabled via env.
+if (getenv("LANGZIO_DEBUG") !== "1") {
+    http_response_code(404);
+    exit;
+}
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 

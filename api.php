@@ -2,10 +2,9 @@
 header("Content-Type: application/json; charset=utf-8");
 header("X-Content-Type-Options: nosniff");
 
-$allowedOrigin = (!empty($_SERVER["HTTP_HOST"]) && $_SERVER["HTTP_HOST"] !== "localhost")
-    ? "https://" . $_SERVER["HTTP_HOST"]
-    : "*";
+$allowedOrigin = "https://langzio.com";
 header("Access-Control-Allow-Origin: " . $allowedOrigin);
+header("Vary: Origin");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 

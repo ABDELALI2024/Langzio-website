@@ -1,0 +1,20 @@
+# Langzio — Hostinger production ignores
+# Secrets / local env
+.env
+
+# Deployment bundles (never commit, never upload to public_html)
+*.zip
+langzio_hostinger.zip
+
+# File-based runtime data (rate limits, analytics, waitlist)
+data/events/
+data/rate/
+data/*.jsonl
+data/*.log
+
+# Logs / OS / editor
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

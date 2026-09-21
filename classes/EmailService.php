@@ -7,10 +7,12 @@ class EmailService
         $base  = langzio_url("verify-email.php");
         $link  = rtrim($base, "/") . "?token=" . urlencode($token);
         $subject = "Verify your Langzio account";
+        $safeName = htmlspecialchars($name, ENT_QUOTES, "UTF-8");
+        $safeLink = htmlspecialchars($link, ENT_QUOTES, "UTF-8");
         $message = "
-            <p>Salam, {$name}!</p>
+            <p>Salam, {$safeName}!</p>
             <p>Click the link below to verify your email and start your free trial:</p>
-            <p><a href=\"{$link}\">{$link}</a></p>
+            <p><a href=\"{$safeLink}\">{$safeLink}</a></p>
             <p>This link expires in 24 hours.</p>
             <p>— Langzio team</p>
         ";
@@ -23,10 +25,12 @@ class EmailService
         $base  = langzio_url("reset-password.php");
         $link  = rtrim($base, "/") . "?token=" . urlencode($token);
         $subject = "Reset your Langzio password";
+        $safeName = htmlspecialchars($name, ENT_QUOTES, "UTF-8");
+        $safeLink = htmlspecialchars($link, ENT_QUOTES, "UTF-8");
         $message = "
-            <p>Salam, {$name}!</p>
+            <p>Salam, {$safeName}!</p>
             <p>Click the link below to reset your password:</p>
-            <p><a href=\"{$link}\">{$link}</a></p>
+            <p><a href=\"{$safeLink}\">{$safeLink}</a></p>
             <p>This link expires in 1 hour.</p>
             <p>— Langzio team</p>
         ";

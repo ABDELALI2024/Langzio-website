@@ -15,9 +15,13 @@ require_once __DIR__ . "/../classes/Subscription.php";
 require_once __DIR__ . "/../classes/WhatsAppNotificationService.php";
 
 $secret = langzio_env("CRON_SECRET", "");
-if ($secret !== "" && ($_GET["key"] ?? "") !== $secret) {
-    http_response_code(403);
-    die("Forbidden");
+// CLI (Hostinger cron via /usr/bin/php) is trusted. HTTP always requires key.
+// Empty secret = deny HTTP to avoid open endpoint.
+if (php_sapi_name() !== "cli") {
+    if ($secret === "" || ($_GET["key"] ?? "") !== $secret) {
+        http_response_code(403);
+        die("Forbidden");
+    }
 }
 
 $whatsapp = new WhatsAppNotificationService();

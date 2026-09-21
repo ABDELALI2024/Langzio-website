@@ -39,7 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($sent) {
                 $success = "A verification code has been sent to your WhatsApp.";
             } else {
-                $success = "Code (WhatsApp not configured): <strong>{$verifyCode}</strong>";
+                error_log("Langzio WhatsApp OTP for user " . (int) $user["id"] . " (provider not configured)");
+                $success = "Number saved. WhatsApp sending is not configured yet — please contact support to verify.";
             }
             $user = Auth::user();
         }
@@ -144,10 +145,10 @@ include "includes/head.php";
             </p>
 
             <?php if ($error): ?>
-                <div class="form-feedback form-error" role="alert"><?php echo $error; ?></div>
+                <div class="form-feedback form-error" role="alert"><?php echo htmlspecialchars($error); ?></div>
             <?php endif; ?>
             <?php if ($success): ?>
-                <div class="form-feedback form-success" role="status"><?php echo $success; ?></div>
+                <div class="form-feedback form-success" role="status"><?php echo htmlspecialchars($success); ?></div>
             <?php endif; ?>
 
             <?php if ($user["whatsapp_verified_at"]): ?>
