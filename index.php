@@ -70,7 +70,7 @@ include "includes/head.php";
         <a href="#why">Why Langzio</a>
         <a href="#features">Features</a>
         <a href="#beta">Beta</a>
-        <a class="nav-cta" href="translator.php">Try Free</a>
+        <a class="nav-cta" href="login.php">Log in</a>
     </nav>
 </header>
 
