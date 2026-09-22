@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/config.php";
 http_response_code(404);
 $pageTitle = "404 - Page Not Found — Langzio";
 $pageDescription = "The page you are looking for does not exist. Try our Darija translator, phrase guides, or kids challenge instead.";

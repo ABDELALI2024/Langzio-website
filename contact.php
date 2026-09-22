@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/config.php";
 $pageTitle = "Contact — Langzio";
 $pageDescription = "Get in touch with the Langzio team. We'd love to hear from you — whether it's feedback, questions, partnership inquiries, or press requests.";
 $pageClass = "auth-page";

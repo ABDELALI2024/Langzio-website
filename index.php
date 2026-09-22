@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/config.php";
 $pageTitle = "Langzio - Cultural AI for Darija";
 $pageDescription = "Darija translation with cultural context, verified phrase packs, and family-friendly learning — built for Morocco travelers and diaspora.";
 $pageClass = "landing-page";
