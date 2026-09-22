@@ -80,8 +80,8 @@ include "includes/head.php";
         <h1 id="hero-title">Darija with context, not just translation</h1>
         <p>Google Translate misses slang, tone, and culture. Langzio gives you natural Darija phrases, when to use them, and what to avoid — for trips and for families keeping the language alive abroad.</p>
         <div class="hero-cta">
-            <a class="btn btn-primary" href="kids.php?challenge=1">Start 7-Day Challenge</a>
-            <a class="btn btn-secondary" href="translator.php">Try Translator</a>
+            <a class="btn btn-primary" href="login.php">Log in</a>
+            <a class="btn btn-secondary" href="pricing.php">See pricing</a>
         </div>
         <div class="hero-metrics honest-metrics" aria-label="Langzio metrics">
             <div><strong>28</strong><span>Verified phrase packs</span></div>
