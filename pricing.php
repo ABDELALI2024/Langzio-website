@@ -4,6 +4,11 @@ Auth::startSession();
 $user = Auth::user();
 $subStatus = Auth::subscriptionStatus();
 
+// PayPal button renders only when both credentials are configured.
+// Otherwise the SDK falls back to client-id=test and every payment fails.
+$paypalConfigured = langzio_env("PAYPAL_CLIENT_ID", "") !== ""
+    && langzio_env("PAYPAL_PLAN_ID", "") !== "";
+
 $pageTitle = "Pricing — Langzio";
 $pageDescription = "Choose your Langzio plan: Free tier with limited access, or Pro for unlimited translations, AI chat, cultural insights, and all guides. 7-day free trial, no credit card required.";
 $pageClass = "app-page";
@@ -131,8 +136,10 @@ include "includes/head.php";
                 </ul>
                 <?php if ($subStatus["plan"] === "pro"): ?>
                     <span class="badge" style="margin-top:16px" itemprop="description">Active</span>
-                <?php elseif ($user): ?>
+                <?php elseif ($user && $paypalConfigured): ?>
                     <div id="paypal-button-container" style="margin-top:16px"></div>
+                <?php elseif ($user): ?>
+                    <p style="margin-top:16px;color:var(--muted);font-size:0.9rem" itemprop="description">Online payment coming soon — your trial covers you for now.</p>
                 <?php else: ?>
                     <a class="btn btn-primary" href="<?php echo htmlspecialchars(langzio_url('register.php')); ?>" style="margin-top:16px;display:inline-block" itemprop="url">Start free trial</a>
                 <?php endif; ?>
@@ -167,7 +174,8 @@ include "includes/head.php";
     </div>
 </div>
 
-<script src="https://www.paypal.com/sdk/js?client-id=<?php echo htmlspecialchars(langzio_env('PAYPAL_CLIENT_ID', 'test')); ?>&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<?php if ($paypalConfigured): ?>
+<script src="https://www.paypal.com/sdk/js?client-id=<?php echo htmlspecialchars(langzio_env('PAYPAL_CLIENT_ID')); ?>&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("paypal-button-container");
@@ -204,5 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }).render("#paypal-button-container");
 });
 </script>
+<?php endif; ?>
 
 <?php include "includes/footer.php"; ?>
