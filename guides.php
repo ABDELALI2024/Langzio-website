@@ -69,8 +69,6 @@ $guidePhrases = [
     ]
 ];
 
-$guideSlugs = array_keys($guidePhrases);
-
 $pageStructuredData = [
     "@context" => "https://schema.org",
     "@type" => "ItemList",
@@ -79,43 +77,13 @@ $pageStructuredData = [
     "name" => "Langzio Smart Guides — Moroccan Darija Phrase Guides",
     "description" => "Free Moroccan Darija phrase guides for Restaurant, Souk, Taxi, Family, and Travel situations with verified phrases, pronunciation, and cultural context.",
     "numberOfItems" => count($guidePhrases),
-    "itemListElement" => array_map(function($key, $guide) use ($guideSlugs) {
-        return [
-            "@type" => "ListItem",
-            "position" => $key + 1,
-            "item" => [
-                "@type" => "Guide",
-                "@id" => LANGZIO_CANONICAL_DOMAIN . "/guides/" . $guideSlugs[$key] . "/",
-                "url" => LANGZIO_CANONICAL_DOMAIN . "/guides/" . $guideSlugs[$key] . "/",
-                "name" => $guide["name"],
-                "description" => $guide["description"],
-                "about" => [
-                    "@type" => "Language",
-                    "name" => "Moroccan Darija",
-                    "alternateName" => "Moroccan Arabic"
-                ],
-                "teaches" => "Situational Darija Communication",
-                "context" => $guide["name"],
-                "hasPart" => array_map(function($i, $phrase) use ($key) {
-                    $slug = strtolower(preg_replace('/[^a-z0-9]+/', '-', $phrase["darija"]));
-                    return [
-                        "@type" => "DefinedTerm",
-                        "@id" => LANGZIO_CANONICAL_DOMAIN . "/dictionary/" . $slug . "/",
-                        "url" => LANGZIO_CANONICAL_DOMAIN . "/dictionary/" . $slug . "/",
-                        "name" => $phrase["darija"],
-                        "inLanguage" => [
-                            "@type" => "Language",
-                            "name" => "Moroccan Darija",
-                            "code" => "ary"
-                        ],
-                        "pronunciation" => $phrase["pronunciation"],
-                        "meaning" => $phrase["meaning"],
-                        "register" => $phrase["register"]
-                    ];
-                }, array_keys($guide["phrases"]), $guide["phrases"])
-            ]
-        ];
-    }, array_keys($guidePhrases), array_values($guidePhrases)),
+    "itemListElement" => [
+        ["@type" => "ListItem", "position" => 1, "url" => LANGZIO_CANONICAL_DOMAIN . "/guides/restaurant/"],
+        ["@type" => "ListItem", "position" => 2, "url" => LANGZIO_CANONICAL_DOMAIN . "/guides/souk/"],
+        ["@type" => "ListItem", "position" => 3, "url" => LANGZIO_CANONICAL_DOMAIN . "/guides/taxi/"],
+        ["@type" => "ListItem", "position" => 4, "url" => LANGZIO_CANONICAL_DOMAIN . "/guides/family/"],
+        ["@type" => "ListItem", "position" => 5, "url" => LANGZIO_CANONICAL_DOMAIN . "/guides/travel/"],
+    ],
     "isPartOf" => [
         "@type" => "WebSite",
         "@id" => LANGZIO_CANONICAL_DOMAIN . "#website"
