@@ -69,7 +69,6 @@ include "includes/head.php";
     <nav aria-label="Main navigation">
         <a href="#why">Why Langzio</a>
         <a href="#features">Features</a>
-        <a href="#beta">Beta</a>
         <a class="nav-cta" href="login.php">Log in</a>
     </nav>
 </header>
