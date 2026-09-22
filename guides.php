@@ -69,6 +69,8 @@ $guidePhrases = [
     ]
 ];
 
+$guideSlugs = array_keys($guidePhrases);
+
 $pageStructuredData = [
     "@context" => "https://schema.org",
     "@type" => "ItemList",
@@ -77,14 +79,14 @@ $pageStructuredData = [
     "name" => "Langzio Smart Guides — Moroccan Darija Phrase Guides",
     "description" => "Free Moroccan Darija phrase guides for Restaurant, Souk, Taxi, Family, and Travel situations with verified phrases, pronunciation, and cultural context.",
     "numberOfItems" => count($guidePhrases),
-    "itemListElement" => array_map(function($key, $guide) {
+    "itemListElement" => array_map(function($key, $guide) use ($guideSlugs) {
         return [
             "@type" => "ListItem",
             "position" => $key + 1,
             "item" => [
                 "@type" => "Guide",
-                "@id" => LANGZIO_CANONICAL_DOMAIN . "/guides/" . array_keys($GLOBALS['guidePhrases'])[$key] . "/",
-                "url" => LANGZIO_CANONICAL_DOMAIN . "/guides/" . array_keys($GLOBALS['guidePhrases'])[$key] . "/",
+                "@id" => LANGZIO_CANONICAL_DOMAIN . "/guides/" . $guideSlugs[$key] . "/",
+                "url" => LANGZIO_CANONICAL_DOMAIN . "/guides/" . $guideSlugs[$key] . "/",
                 "name" => $guide["name"],
                 "description" => $guide["description"],
                 "about" => [
@@ -121,7 +123,6 @@ $pageStructuredData = [
     "inLanguage" => "en-US"
 ];
 
-$GLOBALS['guidePhrases'] = $guidePhrases;
 include "includes/head.php";
 ?>
 <div class="app-shell container">
