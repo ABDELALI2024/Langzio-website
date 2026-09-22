@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 EmailService::sendVerification($email, $name, $user["verification_token"]);
             }
 
-            $redirect = langzio_url("dashboard.php");
+            $redirect = langzio_url("pricing.php");
             header("Location: " . $redirect);
             exit;
         }
