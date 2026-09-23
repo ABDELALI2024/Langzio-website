@@ -78,7 +78,7 @@ function langzio_env(string $key, string $default = ""): string
 // When the key is missing, api.php serves local corpus answers instead.
 define("GROQ_API_KEY", langzio_env("GROQ_API_KEY"));
 define("GROQ_API_URL", "https://api.groq.com/openai/v1/chat/completions");
-define("GROQ_MODEL", "llama-3.3-70b-versatile");
+define("GROQ_MODEL", langzio_env("GROQ_MODEL", "llama-3.3-70b-versatile"));
 
 define("OPENAI_API_KEY", GROQ_API_KEY);
 define("OPENAI_API_URL", GROQ_API_URL);
