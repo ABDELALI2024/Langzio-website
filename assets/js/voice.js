@@ -14,11 +14,11 @@ function langzioSpeak(text) {
     try {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(clean);
-        utterance.lang = "ar-MA";
-        utterance.rate = 0.9;
+        utterance.lang = "en-US";
+        utterance.rate = 0.95;
         const voices = window.speechSynthesis.getVoices();
-        const arabic = voices.find((v) => (v.lang || "").toLowerCase().startsWith("ar"));
-        if (arabic) utterance.voice = arabic;
+        const english = voices.find((v) => (v.lang || "").toLowerCase().startsWith("en"));
+        if (english) utterance.voice = english;
         window.speechSynthesis.speak(utterance);
         return true;
     } catch (e) {
@@ -36,7 +36,7 @@ function langzioListen(input, btn) {
     } catch (e) {
         return;
     }
-    recog.lang = "ar-MA";
+    recog.lang = "en-US";
     recog.interimResults = false;
     recog.maxAlternatives = 1;
     if (btn) {
