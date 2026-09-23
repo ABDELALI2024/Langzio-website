@@ -48,9 +48,7 @@ include "includes/head.php";
             <a href="logout.php">Log out</a>
         </nav>
         <div style="margin-top:auto;padding:12px;border-radius:10px;background:rgba(0,211,139,0.08);font-size:0.85rem;text-align:center">
-            <?php if ($subStatus["is_trial"]): ?>
-                <strong>Trial</strong> — <?php echo $subStatus["days_remaining"]; ?> day(s) left
-            <?php elseif ($subStatus["is_subscribed"]): ?>
+            <?php if ($subStatus["is_subscribed"]): ?>
                 <strong>Pro</strong> — Active
             <?php else: ?>
                 <a href="pricing.php" style="color:var(--green-2)">Upgrade to Pro</a>
@@ -64,19 +62,7 @@ include "includes/head.php";
             <button class="btn btn-secondary compact" id="installAppBtn" type="button">Install app</button>
         </header>
 
-        <?php if ($subStatus["is_trial"]): ?>
-        <section class="card" style="border-color:rgba(0,211,139,0.3);background:rgba(0,211,139,0.06)" aria-labelledby="trial-status">
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-                <div>
-                    <strong id="trial-status">Free Trial</strong> — <?php echo $subStatus["days_remaining"]; ?> day(s) remaining
-                    <?php if ($subStatus["days_remaining"] <= 3): ?>
-                        <p style="margin:4px 0 0;color:var(--red);font-size:0.9rem">Your trial is ending soon!</p>
-                    <?php endif; ?>
-                </div>
-                <a class="btn btn-primary" href="<?php echo htmlspecialchars(langzio_url('pricing.php')); ?>">Upgrade to Pro</a>
-            </div>
-        </section>
-        <?php elseif ($subStatus["plan"] === "pro"): ?>
+        <?php if ($subStatus["plan"] === "pro"): ?>
         <section class="card" style="border-color:rgba(0,211,139,0.4)" aria-labelledby="pro-status">
             <strong id="pro-status">Pro Active</strong> — thank you for supporting Langzio!
         </section>

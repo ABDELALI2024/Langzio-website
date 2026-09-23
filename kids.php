@@ -121,9 +121,7 @@ include "includes/head.php";
             <a href="logout.php">Log out</a>
         </nav>
         <div style="margin-top:auto;padding:12px;border-radius:10px;background:rgba(0,211,139,0.08);font-size:0.85rem;text-align:center">
-            <?php if ($subStatus["is_trial"]): ?>
-                <strong>Trial</strong> — <?php echo $subStatus["days_remaining"]; ?> day(s) left
-            <?php elseif ($subStatus["is_subscribed"]): ?>
+            <?php if ($subStatus["is_subscribed"]): ?>
                 <strong>Pro</strong> — Active
             <?php else: ?>
                 <a href="pricing.php" style="color:var(--green-2)">Upgrade to Pro</a>

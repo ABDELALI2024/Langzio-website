@@ -29,17 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $error = "An account with this email already exists.";
         } else {
             $user = User::create($name, $email, $password);
-            Subscription::createTrial((int) $user["id"]);
+            Subscription::createFreePlan((int) $user["id"]);
             Auth::login((int) $user["id"]);
-
-            try {
-                $whatsapp = new WhatsAppNotificationService();
-                $trialDays = (int) langzio_env("TRIAL_DAYS", "7");
-                $whatsapp->welcome((int) $user["id"], $user["name"], $trialDays);
-                $whatsapp->trialStarted((int) $user["id"], $user["name"], date("Y-m-d", strtotime("+{$trialDays} days")));
-            } catch (\Exception $e) {
-                error_log("WhatsApp welcome failed: " . $e->getMessage());
-            }
 
             if (langzio_env("MAIL_ENABLED", "false") === "true") {
                 EmailService::sendVerification($email, $name, $user["verification_token"]);
@@ -55,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 Auth::redirectIfLoggedIn();
 
 $pageTitle = "Create Free Account — Langzio";
-$pageDescription = "Start your 7-day free trial of Langzio Pro. No credit card required. Get unlimited Darija translations, cultural AI chat, phrase guides, and kids challenge.";
+$pageDescription = "Create your free Langzio account. Get Darija translations, cultural AI chat, phrase guides, and kids challenge. Upgrade to Pro for unlimited access.";
 $pageClass = "auth-page";
 $pageNoIndex = true;
 $pageKeywords = "Langzio register, Darija free trial, Moroccan Arabic signup, create Langzio account";
@@ -66,7 +57,7 @@ $pageStructuredData = [
     "@id" => LANGZIO_CANONICAL_DOMAIN . "/register.php#page",
     "url" => LANGZIO_CANONICAL_DOMAIN . "/register.php",
     "name" => "Create Free Account — Langzio",
-    "description" => "Start your 7-day free trial of Langzio Pro. No credit card required. Get unlimited Darija translations, cultural AI chat, phrase guides, and kids challenge.",
+    "description" => "Create your free Langzio account. Get Darija translations, cultural AI chat, phrase guides, and kids challenge. Upgrade to Pro for unlimited access.",
     "isPartOf" => [
         "@type" => "WebSite",
         "@id" => LANGZIO_CANONICAL_DOMAIN . "#website"
@@ -85,7 +76,7 @@ include "includes/head.php";
 <main class="auth-card" role="main">
     <div class="auth-logo" aria-hidden="true">L</div>
     <h1>Create account</h1>
-    <p class="auth-subtitle">7-day free trial &mdash; no credit card required</p>
+    <p class="auth-subtitle">Free account &mdash; upgrade to Pro anytime</p>
 
     <?php if ($error): ?>
         <div class="form-feedback form-error" role="alert"><?php echo htmlspecialchars($error); ?></div>

@@ -10,7 +10,7 @@ $paypalConfigured = langzio_env("PAYPAL_CLIENT_ID", "") !== ""
     && langzio_env("PAYPAL_PLAN_ID", "") !== "";
 
 $pageTitle = "Pricing — Langzio";
-$pageDescription = "Choose your Langzio plan: Free tier with limited access, or Pro for unlimited translations, AI chat, cultural insights, and all guides. 7-day free trial, no credit card required.";
+$pageDescription = "Choose your Langzio plan: Free tier with limited access, or Pro for unlimited translations, AI chat, cultural insights, and all guides. No credit card required to start.";
 $pageClass = "app-page";
 $pageKeywords = "Langzio pricing, Darija translator cost, Moroccan Arabic learning subscription, Langzio Pro, free trial Darija";
 
@@ -20,7 +20,7 @@ $pageStructuredData = [
     "@id" => LANGZIO_CANONICAL_DOMAIN . "/pricing.php#page",
     "url" => LANGZIO_CANONICAL_DOMAIN . "/pricing.php",
     "name" => "Langzio Pricing Plans",
-    "description" => "Choose your Langzio plan: Free tier with limited access, or Pro for unlimited translations, AI chat, cultural insights, and all guides. 7-day free trial, no credit card required.",
+    "description" => "Choose your Langzio plan: Free tier with limited access, or Pro for unlimited translations, AI chat, cultural insights, and all guides. No credit card required to start.",
     "isPartOf" => [
         "@type" => "WebSite",
         "@id" => LANGZIO_CANONICAL_DOMAIN . "#website"
@@ -80,9 +80,7 @@ include "includes/head.php";
             <a href="logout.php">Log out</a>
         </nav>
         <div style="margin-top:auto;padding:12px;border-radius:10px;background:rgba(0,211,139,0.08);font-size:0.85rem;text-align:center">
-            <?php if ($subStatus["is_trial"]): ?>
-                <strong>Trial</strong> — <?php echo $subStatus["days_remaining"]; ?> day(s) left
-            <?php elseif ($subStatus["is_subscribed"]): ?>
+            <?php if ($subStatus["is_subscribed"]): ?>
                 <strong>Pro</strong> — Active
             <?php else: ?>
                 <a href="pricing.php" style="color:var(--green-2)">Upgrade to Pro</a>
@@ -150,8 +148,8 @@ include "includes/head.php";
         <section class="card" aria-labelledby="faq-title" style="margin-top:24px">
             <h2 id="faq-title">Frequently Asked Questions</h2>
             <dl style="margin-top:16px">
-                <dt>What's included in the 7-day free trial?</dt>
-                <dd style="margin:8px 0 24px;color:var(--muted)">Full Pro access: unlimited translations, AI chat, all guides, kids challenge, and cultural insights. No credit card required to start.</dd>
+                <dt>What do I get with a free account?</dt>
+                <dd style="margin:8px 0 24px;color:var(--muted)">Access to translations, AI chat, guides, kids challenge, and cultural insights. Upgrade to Pro for unlimited access. No credit card required to start.</dd>
                 
                 <dt>Can I cancel anytime?</dt>
                 <dd style="margin:8px 0 24px;color:var(--muted)">Yes. Cancel from your dashboard or PayPal. Access continues until the end of your billing period.</dd>
