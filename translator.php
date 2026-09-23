@@ -134,7 +134,7 @@ include "includes/head.php";
                 <textarea id="translatorInput" placeholder="Type your phrase… e.g. How do I politely ask for the bill?" aria-label="Enter text to translate"></textarea>
             </div>
             <div class="studio-panel glass">
-                <div class="studio-panel-head"><span>Result</span><span><button class="studio-mini-btn" id="speakResultBtn" type="button" aria-label="Listen to the translation">Listen</button> <span class="hidden" id="translatorLoading" aria-live="polite">Translating…</span></span></div>
+                <div class="studio-panel-head"><span>Result</span><span class="hidden" id="translatorLoading" aria-live="polite">Translating…</span></div>
                 <label for="translatorOutput" class="visually-hidden">Translation result</label>
                 <textarea id="translatorOutput" placeholder="Translation appears here…" readonly aria-label="Translation result"></textarea>
                 <div class="structured-preview hidden" id="structuredOutput" aria-live="polite" aria-label="Structured translation output"></div>

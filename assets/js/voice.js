@@ -1,30 +1,12 @@
-/* Langzio voice helpers — speech output (TTS) + speech input (dictation).
+/* Langzio voice input (dictation) — English only.
    Uses the browser Web Speech API only: no backend, no keys, no cost.
-   All controls hide gracefully when the browser lacks support.
+   No voice output: Darija is never vocalized.
+   Mic controls hide gracefully when the browser lacks support.
    Auto-initializes on DOMContentLoaded; safe to load on any page. */
 
 document.addEventListener("DOMContentLoaded", () => {
     initLangzioVoice();
 });
-
-function langzioSpeak(text) {
-    if (!("speechSynthesis" in window)) return false;
-    const clean = (text || "").trim();
-    if (clean === "") return false;
-    try {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(clean);
-        utterance.lang = "en-US";
-        utterance.rate = 0.95;
-        const voices = window.speechSynthesis.getVoices();
-        const english = voices.find((v) => (v.lang || "").toLowerCase().startsWith("en"));
-        if (english) utterance.voice = english;
-        window.speechSynthesis.speak(utterance);
-        return true;
-    } catch (e) {
-        return false;
-    }
-}
 
 function langzioListen(input, btn) {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -71,14 +53,11 @@ function langzioListen(input, btn) {
 }
 
 function initLangzioVoice() {
-    const canSpeak = "speechSynthesis" in window;
     const canListen = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
 
-    // Translator: mic fills the input, Listen reads the result.
+    // Translator: mic dictates English input.
     const tInput = document.getElementById("translatorInput");
-    const tOutput = document.getElementById("translatorOutput");
     const micBtn = document.getElementById("micInputBtn");
-    const speakBtn = document.getElementById("speakResultBtn");
     if (micBtn) {
         if (!canListen || !tInput) {
             micBtn.classList.add("hidden");
@@ -86,24 +65,8 @@ function initLangzioVoice() {
             micBtn.addEventListener("click", () => langzioListen(tInput, micBtn));
         }
     }
-    if (speakBtn) {
-        if (!canSpeak) {
-            speakBtn.classList.add("hidden");
-        } else {
-            speakBtn.addEventListener("click", () => {
-                const structured = document.getElementById("structuredOutput");
-                let text = "";
-                if (structured && !structured.classList.contains("hidden")) {
-                    const first = structured.querySelector(".structured-row strong");
-                    text = first ? first.textContent || "" : structured.textContent || "";
-                }
-                if (!text && tOutput) text = tOutput.value || "";
-                langzioSpeak(text);
-            });
-        }
-    }
 
-    // Chat: mic fills the message input.
+    // Chat: mic dictates the English message.
     const chatInput = document.getElementById("chatInput");
     const chatMic = document.getElementById("chatMicBtn");
     if (chatMic) {
@@ -112,27 +75,5 @@ function initLangzioVoice() {
         } else {
             chatMic.addEventListener("click", () => langzioListen(chatInput, chatMic));
         }
-    }
-
-    // Guides: a Listen button on every phrase (reads the Darija text).
-    if (canSpeak) {
-        document.querySelectorAll(".guide-section li").forEach((item) => {
-            if (item.querySelector(".speak-phrase-btn")) return;
-            const strong = item.querySelector("strong");
-            const phrase = (strong ? strong.textContent : "").trim();
-            if (phrase === "") return;
-            const btn = document.createElement("button");
-            btn.className = "phrase-btn speak-phrase-btn";
-            btn.type = "button";
-            btn.textContent = "Listen";
-            btn.setAttribute("aria-label", "Listen to pronunciation: " + phrase);
-            btn.addEventListener("click", () => langzioSpeak(phrase));
-            const actions = item.querySelector(".phrase-actions");
-            if (actions) {
-                actions.appendChild(btn);
-            } else {
-                item.appendChild(btn);
-            }
-        });
     }
 }
