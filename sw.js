@@ -13,6 +13,7 @@ const OFFLINE_ASSETS = [
     "./manifest.php",
     "./assets/css/style.css",
     "./assets/js/app.js",
+    "./assets/js/voice.js",
     "./assets/icon.svg",
     "./assets/offline-phrases.json",
     "./assets/icons/icon-48.png",

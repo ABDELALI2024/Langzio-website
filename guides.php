@@ -206,4 +206,5 @@ include "includes/head.php";
     </div>
 </div>
 
+<script src="<?php echo htmlspecialchars(langzio_url('assets/js/voice.js'), ENT_QUOTES, 'UTF-8'); ?>"></script>
 <?php include "includes/footer.php"; ?>

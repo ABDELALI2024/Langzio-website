@@ -115,6 +115,7 @@ include "includes/head.php";
             <div class="studio-inputbar">
                 <label for="chatInput" class="visually-hidden">Your message</label>
                 <input type="text" id="chatInput" placeholder="Ask anything about Morocco…" autocomplete="off" aria-label="Type your question">
+                <button id="chatMicBtn" class="studio-mini-btn" type="button" aria-label="Dictate message by voice">Mic</button>
                 <button id="sendChatBtn" type="button" aria-label="Send message">Send →</button>
             </div>
         </div>
@@ -169,4 +170,5 @@ include "includes/head.php";
     </div>
 </div>
 
+<script src="<?php echo htmlspecialchars(langzio_url('assets/js/voice.js'), ENT_QUOTES, 'UTF-8'); ?>"></script>
 <?php include "includes/footer.php"; ?>

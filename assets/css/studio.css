@@ -102,6 +102,12 @@ body.ai-studio .app-content {
     border-color: rgba(0, 211, 139, 0.5);
 }
 
+.studio-mini-btn.is-recording {
+    color: #ff8a8a;
+    border-color: var(--red);
+    animation: studio-pulse 1s infinite ease-in-out;
+}
+
 /* ---------- translator panels ---------- */
 .studio-panels {
     display: grid;

@@ -122,6 +122,7 @@ include "includes/head.php";
             </div>
             <div class="studio-meta">
                 <span id="charCount" aria-live="polite">0 / 10000</span>
+                <button class="studio-mini-btn" id="micInputBtn" type="button" aria-label="Dictate input by voice">Mic</button>
                 <button class="studio-mini-btn" id="clearTranslatorBtn" type="button">Clear</button>
             </div>
         </div>
@@ -133,7 +134,7 @@ include "includes/head.php";
                 <textarea id="translatorInput" placeholder="Type your phrase… e.g. How do I politely ask for the bill?" aria-label="Enter text to translate"></textarea>
             </div>
             <div class="studio-panel glass">
-                <div class="studio-panel-head"><span>Result</span><span class="hidden" id="translatorLoading" aria-live="polite">Translating…</span></div>
+                <div class="studio-panel-head"><span>Result</span><span><button class="studio-mini-btn" id="speakResultBtn" type="button" aria-label="Listen to the translation">Listen</button> <span class="hidden" id="translatorLoading" aria-live="polite">Translating…</span></span></div>
                 <label for="translatorOutput" class="visually-hidden">Translation result</label>
                 <textarea id="translatorOutput" placeholder="Translation appears here…" readonly aria-label="Translation result"></textarea>
                 <div class="structured-preview hidden" id="structuredOutput" aria-live="polite" aria-label="Structured translation output"></div>
@@ -195,4 +196,5 @@ include "includes/head.php";
     </div>
 </div>
 
+<script src="<?php echo htmlspecialchars(langzio_url('assets/js/voice.js'), ENT_QUOTES, 'UTF-8'); ?>"></script>
 <?php include "includes/footer.php"; ?>
