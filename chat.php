@@ -6,7 +6,7 @@ $subStatus = Auth::subscriptionStatus();
 
 $pageTitle = "Langzio AI Chat — Cultural Moroccan Darija Assistant";
 $pageDescription = "Chat with AI about Moroccan Darija, culture, etiquette, and travel. Get culturally grounded answers with conversation memory. Ask about phrases, pronunciation, customs, slang, and more.";
-$pageClass = "app-page";
+$pageClass = "app-page ai-studio";
 $pageKeywords = "Darija AI chat, Moroccan Arabic assistant, Morocco culture AI, Darija tutor, cultural etiquette Morocco, learn Darija chatbot";
 $pageOgType = "website";
 
@@ -67,6 +67,7 @@ $pageStructuredData = [
 
 include "includes/head.php";
 ?>
+<link rel="stylesheet" href="<?php echo htmlspecialchars(langzio_url('assets/css/studio.css'), ENT_QUOTES, 'UTF-8'); ?>">
 <div class="app-shell container">
     <aside class="sidebar glass">
         <a class="brand" href="index.php">Langzio</a>
@@ -100,17 +101,37 @@ include "includes/head.php";
             <button class="btn btn-secondary compact" id="clearChatBtn" type="button">Clear History</button>
         </header>
 
-        <div class="chat-container" role="region" aria-label="Chat interface">
+        <div class="studio-chat glass" role="region" aria-label="Chat interface">
+            <div class="studio-chips" aria-label="Suggested questions">
+                <button class="studio-chip" type="button" data-prompt="How do you say 'thank you' in Darija and when should I use different forms?">Thank you in Darija?</button>
+                <button class="studio-chip" type="button" data-prompt="What are the most important cultural etiquette rules for tourists in Morocco?">Etiquette for tourists</button>
+                <button class="studio-chip" type="button" data-prompt="How do I bargain respectfully in a Moroccan souk?">Souk bargaining</button>
+                <button class="studio-chip" type="button" data-prompt="Teach me 5 essential phrases for a taxi ride in Morocco">Taxi phrases</button>
+            </div>
             <div class="chat-messages" id="chatMessages" aria-live="polite" aria-label="Conversation">
                 <div class="message ai">Salam! I can help you with Darija phrases and Moroccan social etiquette. Ask me anything about Morocco — translations, cultural norms, pronunciation, slang, or travel advice.</div>
             </div>
-            <div class="chat-input-bar">
+            <p class="hidden" id="chatTyping" aria-live="polite">Thinking</p>
+            <div class="studio-inputbar">
                 <label for="chatInput" class="visually-hidden">Your message</label>
-                <input type="text" id="chatInput" placeholder="Ask anything about Morocco..." autocomplete="off" aria-label="Type your question">
-                <button id="sendChatBtn" type="button" aria-label="Send message">Send</button>
+                <input type="text" id="chatInput" placeholder="Ask anything about Morocco…" autocomplete="off" aria-label="Type your question">
+                <button id="sendChatBtn" type="button" aria-label="Send message">Send →</button>
             </div>
-            <p class="hidden" id="chatTyping" style="color:var(--green-1);font-size:0.85rem" aria-live="polite">Thinking...</p>
         </div>
+        <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const input = document.getElementById("chatInput");
+            const send = document.getElementById("sendChatBtn");
+            document.querySelectorAll(".studio-chip").forEach((chip) => {
+                chip.addEventListener("click", () => {
+                    if (!input || !send) return;
+                    input.value = chip.dataset.prompt || chip.textContent || "";
+                    input.focus();
+                    send.click();
+                });
+            });
+        });
+        </script>
 
         <section class="card" aria-labelledby="chat-examples-title" style="margin-top:24px">
             <h2 id="chat-examples-title">Example Questions You Can Ask</h2>

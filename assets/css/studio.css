@@ -1,0 +1,399 @@
+/* Langzio AI studio theme — translator + chat only.
+   Scoped under body.ai-studio. Never touches app.js contracts:
+   IDs (sourceLang, targetLang, swapLang, translatorInput, translatorOutput,
+   structuredOutput, translatorLoading, translateBtn, chatMessages, chatInput,
+   sendChatBtn, chatTyping, clearChatBtn) and classes
+   (.message.user/.ai, .structured-row, .hidden) are preserved. */
+
+body.ai-studio .app-content {
+    max-width: 1020px;
+}
+
+/* ---------- shared studio chrome ---------- */
+.studio-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    margin-bottom: 16px;
+}
+
+.studio-lang {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.studio-lang label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.studio-lang select {
+    appearance: none;
+    background: rgba(0, 0, 0, 0.3) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300d38b' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center;
+    border: 1px solid rgba(0, 211, 139, 0.35);
+    color: var(--text);
+    font-size: 0.98rem;
+    font-weight: 600;
+    padding: 12px 38px 12px 16px;
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+.studio-lang select:focus {
+    outline: 2px solid var(--green-2);
+    outline-offset: 1px;
+}
+
+.studio-lang select option {
+    background: #0c1512;
+}
+
+#swapLang {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 211, 139, 0.4);
+    background: linear-gradient(135deg, var(--green), var(--green-2));
+    color: #03170f;
+    font-size: 1.3rem;
+    font-weight: 800;
+    cursor: pointer;
+    align-self: flex-end;
+    transition: transform 0.2s ease;
+}
+
+#swapLang:hover {
+    transform: rotate(180deg);
+}
+
+.studio-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
+.studio-mini-btn {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.studio-mini-btn:hover {
+    color: var(--text);
+    border-color: rgba(0, 211, 139, 0.5);
+}
+
+/* ---------- translator panels ---------- */
+.studio-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.studio-panel {
+    border-radius: 18px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 300px;
+}
+
+.studio-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.studio-panel textarea {
+    flex: 1;
+    min-height: 220px;
+    resize: vertical;
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    color: var(--text);
+    font-size: 1.02rem;
+    line-height: 1.65;
+    padding: 16px;
+    font-family: inherit;
+}
+
+.studio-panel textarea:focus {
+    outline: 2px solid var(--green-2);
+    outline-offset: 1px;
+    border-color: transparent;
+}
+
+.studio-panel textarea[readonly] {
+    background: rgba(0, 211, 139, 0.05);
+}
+
+#translatorLoading {
+    color: var(--green-2);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    margin: 0;
+    animation: studio-pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes studio-pulse {
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 1; }
+}
+
+.studio-go {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 800;
+    padding: 17px;
+    border-radius: 16px;
+    color: #03170f;
+    background: linear-gradient(90deg, var(--green), var(--green-2));
+    box-shadow: 0 12px 30px rgba(0, 211, 139, 0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.studio-go:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px rgba(0, 211, 139, 0.32);
+}
+
+.studio-go:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+/* structured output cards */
+body.ai-studio .structured-preview {
+    padding: 0;
+}
+
+body.ai-studio .structured-row {
+    grid-template-columns: 110px 1fr;
+    background: rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(0, 211, 139, 0.14);
+    border-radius: 12px;
+    padding: 12px 14px;
+}
+
+body.ai-studio .structured-row strong {
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+/* ---------- chat studio ---------- */
+.studio-chat {
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+body.ai-studio .chat-messages {
+    max-height: 56vh;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+    padding: 6px 2px;
+}
+
+body.ai-studio .message {
+    max-width: 82%;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 0;
+    background: none;
+    line-height: 1.6;
+}
+
+body.ai-studio .message::before {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+body.ai-studio .message.ai {
+    align-self: flex-start;
+}
+
+body.ai-studio .message.ai::before {
+    content: "LZ";
+    background: linear-gradient(135deg, var(--green), var(--green-2));
+    color: #03170f;
+}
+
+body.ai-studio .message.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+body.ai-studio .message.user::before {
+    content: "YOU";
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text);
+    font-size: 0.6rem;
+}
+
+/* bubble text: message node holds text directly, so style it */
+body.ai-studio .message.ai {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px 16px 16px 16px;
+    padding: 13px 16px;
+    padding-left: 16px;
+    white-space: pre-wrap;
+}
+
+body.ai-studio .message.user {
+    background: linear-gradient(135deg, rgba(0, 167, 111, 0.32), rgba(0, 211, 139, 0.22));
+    border: 1px solid rgba(0, 211, 139, 0.3);
+    border-radius: 16px 16px 4px 16px;
+    padding: 13px 16px;
+    white-space: pre-wrap;
+}
+
+body.ai-studio .message.ai::before,
+body.ai-studio .message.user::before {
+    margin-top: 2px;
+}
+
+#chatTyping {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--green-2);
+}
+
+#chatTyping::after {
+    content: "● ● ●";
+    letter-spacing: 4px;
+    animation: studio-pulse 1s infinite ease-in-out;
+}
+
+.studio-inputbar {
+    display: flex;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 10px;
+}
+
+.studio-inputbar:focus-within {
+    border-color: rgba(0, 211, 139, 0.5);
+}
+
+#chatInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 1rem;
+    padding: 12px 14px;
+    font-family: inherit;
+}
+
+#chatInput:focus {
+    outline: none;
+}
+
+#sendChatBtn {
+    border: none;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 0.95rem;
+    padding: 12px 26px;
+    border-radius: 13px;
+    color: #03170f;
+    background: linear-gradient(90deg, var(--green), var(--green-2));
+}
+
+#sendChatBtn:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.studio-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.studio-chip {
+    border: 1px solid rgba(0, 211, 139, 0.3);
+    background: rgba(0, 211, 139, 0.07);
+    color: var(--text);
+    font-size: 0.85rem;
+    padding: 9px 15px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.studio-chip:hover {
+    background: rgba(0, 211, 139, 0.16);
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 760px) {
+    .studio-panels {
+        grid-template-columns: 1fr;
+    }
+
+    body.ai-studio .message {
+        max-width: 94%;
+    }
+
+    .studio-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #swapLang {
+        align-self: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.ai-studio * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
