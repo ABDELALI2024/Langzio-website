@@ -12,7 +12,10 @@ Disallow: /verify-email.php
 Disallow: /dashboard.php
 Disallow: /translator.php
 Disallow: /chat.php
+Disallow: /guides.php
 Disallow: /kids.php
+Disallow: /blog.php
+Disallow: /learn.php
 Disallow: /profile.php
 Disallow: /api.php
 Disallow: /api/

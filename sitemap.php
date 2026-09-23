@@ -16,25 +16,11 @@ $baseUrl = LANGZIO_CANONICAL_DOMAIN;
 $now = gmdate("Y-m-d\TH:i:s\Z");
 
 $urls = [
-    // Core public pages
+    // Public pages (everything else requires login)
     ["url" => $baseUrl . "/", "changefreq" => "weekly", "priority" => "1.0"],
-
-    // Pillar + about (topical authority)
-    ["url" => $baseUrl . "/learn/", "changefreq" => "monthly", "priority" => "0.9"],
     ["url" => $baseUrl . "/about/", "changefreq" => "yearly", "priority" => "0.5"],
-    
-    // Guides (public versions)
-    ["url" => $baseUrl . "/guides/", "changefreq" => "monthly", "priority" => "0.8"],
-    ["url" => $baseUrl . "/guides/restaurant/", "changefreq" => "monthly", "priority" => "0.8"],
-    ["url" => $baseUrl . "/guides/souk/", "changefreq" => "monthly", "priority" => "0.8"],
-    ["url" => $baseUrl . "/guides/taxi/", "changefreq" => "monthly", "priority" => "0.8"],
-    ["url" => $baseUrl . "/guides/family/", "changefreq" => "monthly", "priority" => "0.8"],
-    ["url" => $baseUrl . "/guides/travel/", "changefreq" => "monthly", "priority" => "0.7"],
-
-    // Blog
-    ["url" => $baseUrl . "/blog/", "changefreq" => "weekly", "priority" => "0.7"],
     ["url" => $baseUrl . "/pricing.php", "changefreq" => "monthly", "priority" => "0.5"],
-    
+
     // Contact
     ["url" => $baseUrl . "/contact.php", "changefreq" => "yearly", "priority" => "0.5"],
 ];

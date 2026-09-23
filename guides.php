@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/classes/Auth.php";
-Auth::startSession();
+Auth::requireLogin();
 $user = Auth::user();
 $subStatus = Auth::subscriptionStatus();
 

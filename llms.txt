@@ -86,7 +86,7 @@ Langzio content is built from a verified phrase corpus (Darija, Arabic script, p
 **LinkedIn:** https://linkedin.com/company/langzio
 
 ## Crawling Policy
-- Public pages (this list) are crawlable and indexable
-- Private/auth pages (dashboard, profile, API endpoints) are noindex + disallowed in robots.txt
+- Public pages (homepage, about, pricing, contact) are crawlable and indexable
+- Translator, chat, guides, kids, blog, learn, dashboard, profile, and API endpoints require login (noindex + disallowed in robots.txt)
 - AI crawlers (OAI-SearchBot, GPTBot, ClaudeBot, PerplexityBot, Google-Extended) explicitly allowed
 - Sitemap: https://langzio.com/sitemap.xml
