@@ -44,6 +44,9 @@ $urls = [
     ["url" => $baseUrl . "/guides/taxi/", "changefreq" => "monthly", "priority" => "0.8"],
     ["url" => $baseUrl . "/guides/family/", "changefreq" => "monthly", "priority" => "0.8"],
     ["url" => $baseUrl . "/guides/travel/", "changefreq" => "monthly", "priority" => "0.7"],
+
+    // Blog
+    ["url" => $baseUrl . "/blog/", "changefreq" => "weekly", "priority" => "0.7"],
     
     // Culture
     ["url" => $baseUrl . "/culture/etiquette/", "changefreq" => "monthly", "priority" => "0.7"],

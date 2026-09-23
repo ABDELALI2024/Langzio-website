@@ -7,6 +7,7 @@ const OFFLINE_ASSETS = [
     "./chat.php",
     "./guides.php",
     "./kids.php",
+    "./blog.php",
     "./pricing.php",
     "./profile.php",
     "./manifest.php",

@@ -28,6 +28,7 @@ Disallow: /info.php
 Disallow: /status.php
 Disallow: /track.php
 Disallow: /seed.php
+Disallow: /admin-blog.php
 Disallow: /.env
 Disallow: /.git
 Disallow: /*.json$

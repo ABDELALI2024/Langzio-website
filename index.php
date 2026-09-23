@@ -168,6 +168,7 @@ include "includes/head.php";
         <a href="chat.php">AI Chat</a>
         <a href="guides.php">Guides</a>
         <a href="kids.php">Kids</a>
+        <a href="blog.php">Blog</a>
         <a href="contact.php">Contact</a>
     </nav>
     <p class="copyright">© <?php echo date("Y"); ?> Langzio · Early beta</p>

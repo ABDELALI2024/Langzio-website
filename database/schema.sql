@@ -61,3 +61,17 @@ CREATE TABLE IF NOT EXISTS notification_logs (
     INDEX idx_type (type),
     INDEX idx_created_at (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS blog_posts (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    slug VARCHAR(150) NOT NULL UNIQUE,
+    title VARCHAR(200) NOT NULL,
+    excerpt VARCHAR(500) DEFAULT NULL,
+    content MEDIUMTEXT NOT NULL,
+    status ENUM('draft','published') NOT NULL DEFAULT 'draft',
+    published_at DATETIME DEFAULT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_slug (slug),
+    INDEX idx_status_published (status, published_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

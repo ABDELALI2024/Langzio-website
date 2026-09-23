@@ -79,6 +79,7 @@ include "includes/head.php";
             <a href="chat.php">AI Chat</a>
             <a href="guides.php">Guides</a>
             <a href="kids.php">Kids</a>
+            <a href="blog.php">Blog</a>
             <hr style="border-color:rgba(255,255,255,0.08);margin:12px 0">
             <a href="profile.php">Profile</a>
             <a href="pricing.php">Pricing</a>
