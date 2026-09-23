@@ -20,13 +20,8 @@ $urls = [
     ["url" => $baseUrl . "/", "changefreq" => "weekly", "priority" => "1.0"],
 
     // Pillar + about (topical authority)
-    
-    // Pillar + about (topical authority)
     ["url" => $baseUrl . "/learn/", "changefreq" => "monthly", "priority" => "0.9"],
     ["url" => $baseUrl . "/about/", "changefreq" => "yearly", "priority" => "0.5"],
-    
-    // Translator (public demo)
-    ["url" => $baseUrl . "/translator/", "changefreq" => "monthly", "priority" => "0.8"],
     
     // Guides (public versions)
     ["url" => $baseUrl . "/guides/", "changefreq" => "monthly", "priority" => "0.8"],

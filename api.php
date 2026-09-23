@@ -20,7 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
 
 require_once "config.php";
+require_once "classes/Auth.php";
 require_once "includes/langzio-ai.php";
+
+if (!Auth::check()) {
+    http_response_code(401);
+    echo json_encode(["error" => "Login required"]);
+    exit;
+}
 
 langzio_rate_limit_check(60);
 

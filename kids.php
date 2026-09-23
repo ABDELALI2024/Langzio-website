@@ -1,9 +1,8 @@
 <?php
 require_once __DIR__ . "/classes/Auth.php";
-Auth::startSession();
+Auth::requireLogin();
 $user = Auth::user();
 $subStatus = Auth::subscriptionStatus();
-$isLoggedIn = Auth::check();
 
 $pageTitle = "Langzio Kids — 7-Day Darija Challenge for Families";
 $pageDescription = "Help your children learn Moroccan Darija with our free 7-day family challenge: 5 words daily with flashcards, pronunciation, streaks, and progress tracking. Built for Moroccan diaspora families abroad.";
@@ -167,14 +166,6 @@ include "includes/head.php";
             </div>
             <p class="kids-note">Built for Moroccan families abroad — 5 words daily keeps Darija alive between visits home.</p>
         </section>
-
-        <?php if (!$isLoggedIn): ?>
-        <section class="card" style="text-align:center;background:rgba(0,211,139,0.06);border-color:rgba(0,211,139,0.3)">
-            <h2>Track Progress & Save Streaks</h2>
-            <p style="color:var(--muted);margin:16px 0">Create a free account to save your child's progress, maintain streaks across devices, and unlock all 7 days.</p>
-            <a class="btn btn-primary" href="<?php echo htmlspecialchars(langzio_url('register.php')); ?>">Start Free Challenge</a>
-        </section>
-        <?php endif; ?>
 
         <section class="card" aria-labelledby="methodology-title">
             <h2 id="methodology-title">How the Challenge Works</h2>

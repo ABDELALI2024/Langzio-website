@@ -1,9 +1,8 @@
 <?php
 require_once __DIR__ . "/classes/Auth.php";
-Auth::startSession();
+Auth::requireLogin();
 $user = Auth::user();
 $subStatus = Auth::subscriptionStatus();
-$isLoggedIn = Auth::check();
 
 $pageTitle = "Langzio AI Chat — Cultural Moroccan Darija Assistant";
 $pageDescription = "Chat with AI about Moroccan Darija, culture, etiquette, and travel. Get culturally grounded answers with conversation memory. Ask about phrases, pronunciation, customs, slang, and more.";
@@ -100,13 +99,6 @@ include "includes/head.php";
             <h1>Cultural AI Chat</h1>
             <button class="btn btn-secondary compact" id="clearChatBtn" type="button">Clear History</button>
         </header>
-
-        <?php if (!$isLoggedIn): ?>
-        <section class="card" style="background:rgba(0,211,139,0.06);border-color:rgba(0,211,139,0.3);margin-bottom:20px">
-            <h2>Try the Cultural AI Chat</h2>
-            <p>Ask about Darija phrases, Moroccan etiquette, travel tips, or cultural nuances. <a href="<?php echo htmlspecialchars(langzio_url('register.php')); ?>">Create a free account</a> for full access with conversation memory.</p>
-        </section>
-        <?php endif; ?>
 
         <div class="chat-container" role="region" aria-label="Chat interface">
             <div class="chat-messages" id="chatMessages" aria-live="polite" aria-label="Conversation">

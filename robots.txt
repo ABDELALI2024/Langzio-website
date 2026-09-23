@@ -10,7 +10,9 @@ Disallow: /register.php
 Disallow: /logout.php
 Disallow: /verify-email.php
 Disallow: /dashboard.php
+Disallow: /translator.php
 Disallow: /chat.php
+Disallow: /kids.php
 Disallow: /profile.php
 Disallow: /api.php
 Disallow: /api/

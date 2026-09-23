@@ -1,9 +1,8 @@
 <?php
 require_once __DIR__ . "/classes/Auth.php";
-Auth::startSession();
+Auth::requireLogin();
 $user = Auth::user();
 $subStatus = Auth::subscriptionStatus();
-$isLoggedIn = Auth::check();
 
 $pageTitle = "Langzio Translator — AI Moroccan Darija Translation with Cultural Context";
 $pageDescription = "Translate English, French, or Darija with AI-powered cultural context. Get structured output: Darija phrase, pronunciation, meaning, tone, cultural tips, and common mistakes to avoid. Free demo available.";
@@ -101,13 +100,6 @@ include "includes/head.php";
             <h1>AI Translator</h1>
             <a class="btn btn-secondary compact" href="dashboard.php">Dashboard</a>
         </header>
-
-        <?php if (!$isLoggedIn): ?>
-        <section class="card" style="background:rgba(0,211,139,0.06);border-color:rgba(0,211,139,0.3);margin-bottom:20px">
-            <h2>Free Translator Demo</h2>
-            <p>Try the translator below with limited daily translations. <a href="<?php echo htmlspecialchars(langzio_url('register.php')); ?>">Create a free account</a> for unlimited translations, history, and cultural insights.</p>
-        </section>
-        <?php endif; ?>
 
         <div class="translator-container" role="region" aria-label="Translator">
             <div class="translator-controls" aria-label="Language selection">
