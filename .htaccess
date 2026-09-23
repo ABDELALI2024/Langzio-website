@@ -5,6 +5,10 @@ RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
+# Canonical host: www.langzio.com → langzio.com (staging domains untouched)
+RewriteCond %{HTTP_HOST} ^www\.langzio\.com$ [NC]
+RewriteRule ^ https://langzio.com%{REQUEST_URI} [R=301,L]
+
 # Block sensitive files/dirs — return 403 (no existence leak)
 RewriteRule ^\.env - [F,L]
 RewriteRule ^\.git - [F,L]
