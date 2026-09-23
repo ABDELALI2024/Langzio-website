@@ -41,8 +41,8 @@ include "includes/head.php";
         </a>
         <nav class="lz-nav" id="lzNav" aria-label="Main navigation">
             <a href="#why">Why Langzio</a>
-            <a href="learn.php">Learn Darija</a>
-            <a href="guides.php">Guides</a>
+            <a href="#learn-darija">Learn Darija</a>
+            <a href="#situations">Guides</a>
             <a href="#travelers">For Travelers</a>
             <a href="#families">For Families</a>
         </nav>
@@ -62,8 +62,8 @@ include "includes/head.php";
                 <h1 id="hero-title">Learn Moroccan Darija.<br><span class="lz-accent">Understand the context.</span><br>Speak naturally.</h1>
                 <p class="lz-hero-sub">Langzio is a web application for learning and understanding Moroccan Darija through natural language, cultural context, pronunciation, and real-life situations.</p>
                 <div class="lz-hero-cta">
-                    <a class="lz-btn lz-btn-primary" href="register.php">Join Langzio →</a>
-                    <a class="lz-btn lz-btn-ghost" href="guides.php">Explore Langzio</a>
+                    <a class="lz-btn lz-btn-primary" href="login.php">Log in</a>
+                    <a class="lz-btn lz-btn-ghost" href="register.php">Join Langzio →</a>
                 </div>
                 <ul class="lz-trust" aria-label="About Langzio">
                     <li>Web application</li>
@@ -153,7 +153,7 @@ include "includes/head.php";
                 </article>
             </div>
             <div class="lz-center">
-                <a class="lz-text-link" href="guides.php">Explore Darija situations →</a>
+                <a class="lz-text-link" href="#learn-darija">Explore Darija situations →</a>
             </div>
         </div>
     </section>
@@ -167,19 +167,19 @@ include "includes/head.php";
                     <div class="lz-audience-img" aria-hidden="true"></div>
                     <h3>Travelers</h3>
                     <p>Navigate Morocco with confidence and understand the expressions you hear every day.</p>
-                    <a class="lz-text-link" href="guides.php">Explore for travelers →</a>
+                    <a class="lz-text-link" href="register.php">Explore for travelers →</a>
                 </article>
                 <article class="lz-card" id="families">
                     <div class="lz-audience-img" aria-hidden="true"></div>
                     <h3>Moroccan Families &amp; Diaspora</h3>
                     <p>Keep Moroccan Darija connected across generations with practical everyday language.</p>
-                    <a class="lz-text-link" href="kids.php">Explore for families →</a>
+                    <a class="lz-text-link" href="register.php">Explore for families →</a>
                 </article>
                 <article class="lz-card">
                     <div class="lz-audience-img" aria-hidden="true"></div>
                     <h3>Kids</h3>
                     <p>Make Moroccan Darija part of everyday family life through simple and engaging learning.</p>
-                    <a class="lz-text-link" href="kids.php">Explore for kids →</a>
+                    <a class="lz-text-link" href="register.php">Explore for kids →</a>
                 </article>
             </div>
         </div>
@@ -194,17 +194,17 @@ include "includes/head.php";
                     <p><strong>Moroccan Darija</strong> is the everyday spoken Arabic variety used across Morocco. It is widely used in family life, cafés, shops, taxis, travel, and everyday conversations.</p>
                     <p><strong>Moroccan Arabic</strong> has developed through influences from Arabic, Amazigh, French, Spanish, and other languages. That mix is exactly what makes it lively — and why word-for-word translation often misses the point.</p>
                     <p>To <strong>learn Darija</strong> is to learn how Moroccans actually speak: greetings first, politeness always, and a different expression for every situation. Langzio teaches <strong>Darija</strong> the way it lives — in context.</p>
-                    <p><a class="lz-text-link" href="learn.php">Discover Moroccan Darija →</a></p>
+                    <p><a class="lz-text-link" href="#learn-darija">Discover Moroccan Darija →</a></p>
                 </div>
                 <div>
                     <h3 style="margin:0 0 4px;color:var(--lz-green-deep)">Explore Moroccan Darija</h3>
                     <ul class="lz-topic-list">
-                        <li><a href="guides.php">Moroccan Darija phrases <span>→</span></a></li>
-                        <li><a href="guides.php">Moroccan Darija greetings <span>→</span></a></li>
-                        <li><a href="guides.php">Moroccan Darija pronunciation <span>→</span></a></li>
-                        <li><a href="blog.php">Moroccan Darija slang <span>→</span></a></li>
-                        <li><a href="guides.php">Moroccan Darija for travelers <span>→</span></a></li>
-                        <li><a href="blog.php">Moroccan culture &amp; etiquette <span>→</span></a></li>
+                        <li><a href="#learn-darija">Moroccan Darija phrases <span>→</span></a></li>
+                        <li><a href="#learn-darija">Moroccan Darija greetings <span>→</span></a></li>
+                        <li><a href="#learn-darija">Moroccan Darija pronunciation <span>→</span></a></li>
+                        <li><a href="#learn-darija">Moroccan Darija slang <span>→</span></a></li>
+                        <li><a href="#learn-darija">Moroccan Darija for travelers <span>→</span></a></li>
+                        <li><a href="#learn-darija">Moroccan culture &amp; etiquette <span>→</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -268,37 +268,37 @@ include "includes/head.php";
             <nav aria-label="Learn Darija">
                 <h3>Learn Darija</h3>
                 <ul>
-                    <li><a href="learn.php">Moroccan Darija</a></li>
-                    <li><a href="guides.php">Darija phrases</a></li>
-                    <li><a href="guides.php">Pronunciation</a></li>
-                    <li><a href="blog.php">Dictionary</a></li>
-                    <li><a href="blog.php">Slang</a></li>
+                    <li><a href="#learn-darija">Moroccan Darija</a></li>
+                    <li><a href="#learn-darija">Darija phrases</a></li>
+                    <li><a href="#learn-darija">Pronunciation</a></li>
+                    <li><a href="#learn-darija">Dictionary</a></li>
+                    <li><a href="#learn-darija">Slang</a></li>
                 </ul>
             </nav>
             <nav aria-label="Situations">
                 <h3>Situations</h3>
                 <ul>
-                    <li><a href="guides/restaurant/">Restaurant</a></li>
-                    <li><a href="guides/taxi/">Taxi</a></li>
-                    <li><a href="guides/souk/">Souk</a></li>
-                    <li><a href="guides.php">Greetings</a></li>
-                    <li><a href="guides/family/">Family</a></li>
+                    <li><a href="#situations">Restaurant</a></li>
+                    <li><a href="#situations">Taxi</a></li>
+                    <li><a href="#situations">Souk</a></li>
+                    <li><a href="#situations">Greetings</a></li>
+                    <li><a href="#situations">Family</a></li>
                 </ul>
             </nav>
             <nav aria-label="For">
                 <h3>For</h3>
                 <ul>
-                    <li><a href="guides.php">Travelers</a></li>
-                    <li><a href="kids.php">Diaspora</a></li>
-                    <li><a href="kids.php">Kids</a></li>
+                    <li><a href="#travelers">Travelers</a></li>
+                    <li><a href="#families">Diaspora</a></li>
+                    <li><a href="#families">Kids</a></li>
                 </ul>
             </nav>
             <nav aria-label="Langzio">
                 <h3>Langzio</h3>
                 <ul>
                     <li><a href="about.php">About</a></li>
-                    <li><a href="guides.php">Guides</a></li>
-                    <li><a href="blog.php">Blog</a></li>
+                    <li><a href="#situations">Guides</a></li>
+                    <li><a href="#learn-darija">Blog</a></li>
                     <li><a href="contact.php">Contact</a></li>
                 </ul>
             </nav>
