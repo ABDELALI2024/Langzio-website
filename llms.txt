@@ -1,115 +1,69 @@
 # Langzio — Moroccan Darija Cultural Language Platform
 
 ## About
-Langzio is a cultural language intelligence platform for Moroccan Darija (Moroccan Arabic). We provide AI-powered translation, cultural chat, verified phrase guides, and family learning tools for travelers, Moroccan diaspora families, and language learners.
+Langzio is a web application for learning and understanding Moroccan Darija through natural language, cultural context, pronunciation, and real-life situations. It serves travelers, Moroccan diaspora families, kids, and language learners.
 
 **Website:** https://langzio.com
 **Canonical Domain:** https://langzio.com
 
 ## Core Entity
 **Langzio** (Organization, SoftwareApplication)
-- Cultural language intelligence for Moroccan Darija
-- AI-powered translation with cultural context (RAG-grounded)
-- Conversational AI tutor for Darija and Moroccan culture
-- Verified phrase corpus (28+ curated phrases from native speakers)
+- Web application for learning and understanding Moroccan Darija
+- Darija translator with pronunciation, tone, and cultural context
+- Cultural chat for etiquette, slang, and real-life situations
+- Verified phrase corpus (curated phrases reviewed with Moroccan speakers)
 - 7-Day Kids Challenge for diaspora families
-- Freemium: 7-day free trial → $9/month Pro
+- Blog with Darija stories and learning tips
 
-## Key Resources
+## Key Resources (all URLs below exist)
 
-### 1. What is Moroccan Darija?
-**URL:** https://langzio.com/what-is-darija/
-**Type:** Definition / Pillar Content
-**Description:** Comprehensive definition of Moroccan Darija — classification, geography, speaker count, relationship to Modern Standard Arabic, writing systems (Arabic script, Arabizi), linguistic features, and learning implications.
+### 1. What is Moroccan Darija? — Pillar Guide
+**URL:** https://langzio.com/learn/
+**Type:** Definition / Pillar Content (Article + FAQ)
+**Description:** Direct definition of Moroccan Darija, where it is spoken, differences from Modern Standard Arabic (comparison table), language influences (Arabic, Amazigh, French, Spanish), common expressions with Arabic script + pronunciation + context, and how to start learning.
 
-### 2. Darija vs Modern Standard Arabic
-**URL:** https://langzio.com/darija-vs-arabic/
-**Type:** Comparison
-**Description:** Side-by-side comparison of Darija and MSA — grammar, vocabulary, pronunciation, mutual intelligibility, when to use each, and learning strategy implications.
+### 2. About Langzio
+**URL:** https://langzio.com/about/
+**Type:** AboutPage
+**Description:** What Langzio is, why it focuses on Moroccan Darija, what it offers, how content is made and reviewed, and who it is for.
 
-### 3. Learn Moroccan Darija — Complete Guide
-**URL:** https://langzio.com/learn-darija/
-**Type:** Learning Hub / Methodology
-**Description:** Step-by-step guide to learning Darija: methodology, roadmap, resources, product entry points (Translator, Chat, Guides, Kids Challenge), and Langzio's RAG-grounded approach.
-
-### 4. Darija for Beginners
-**URL:** https://langzio.com/darija-beginners/
-**Type:** Beginner Resource
-**Description:** First 50 words, basic grammar essentials, pronunciation starting point, and links to practice tools.
-
-### 5. Darija Vocabulary Lists
-**URL:** https://langzio.com/darija-vocabulary/
-**Type:** Reference
-**Description:** Thematic vocabulary lists (100, 500, 1000 words) with flashcard links and spaced repetition guidance.
-
-### 6. Darija Phrase Collection
-**URL:** https://langzio.com/darija-phrases/
-**Type:** Phrase Index
-**Description:** Categorized situational phrases linking to full guides: Restaurant, Souk, Taxi, Family, Travel, Basics.
-
-### 7. Darija Pronunciation Guide
-**URL:** https://langzio.com/darija-pronunciation/
-**Type:** Phonology Reference
-**Description:** Complete phonology guide: consonants (including 3, 7, 9, q, gh, kh), vowels, stress, intonation, Arabizi mapping table, French loanword pronunciation, regional variation.
-
-### 8. Arabizi Guide — Complete Reference
-**URL:** https://langzio.com/arabizi-guide/
-**Type:** Technical Reference
-**Description:** Definitive Arabizi reference: number mappings (3=ع, 7=ح, 9=ق/غ, 5=خ, 2=أ), letter mappings, typing guide, history, Langzio convention, practice tool.
-
-### 9. Darija Dictionary
-**URL:** https://langzio.com/dictionary/
-**Type:** Dictionary / Glossary
-**Description:** Searchable dictionary of Darija terms with DefinedTerm schema: canonical term, Arabic script, pronunciation, meaning, register, usage examples, cultural context, related terms.
-
-### 10. Langzio Translator (Public Demo)
+### 3. Langzio Translator (Public Demo)
 **URL:** https://langzio.com/translator/
 **Type:** Tool / SoftwareApplication
-**Description:** AI-powered Moroccan Darija translator with structured output: Darija phrase, Latin pronunciation, English meaning, tone/register, cultural context, common mistakes to avoid, pro tips. Supports English, French, Darija input. Free demo available.
+**Description:** Moroccan Darija translator with structured output: Darija phrase, Latin pronunciation, English meaning, tone/register, cultural context, common mistakes to avoid, pro tips. Supports English, French, Darija input. Free demo available.
 
-### 11. Smart Guides — Situational Phrase Packs
+### 4. Smart Guides — Situational Phrase Packs
 **URL:** https://langzio.com/guides/
 **Type:** Guide Collection (ItemList)
 **Contains:**
-- **Restaurant Guide:** https://langzio.com/guides/restaurant/ — 4 verified phrases + cultural tips
-- **Souk Bargaining Guide:** https://langzio.com/guides/souk/ — 4 verified phrases + numbers 1-100 + bargaining etiquette
-- **Taxi & Transport Guide:** https://langzio.com/guides/taxi/ — 5 verified phrases + petit/grand taxi distinction + safety tips
-- **Family & Social Guide:** https://langzio.com/guides/family/ — 5 verified phrases + greeting rituals + hospitality expressions
-- **Travel Essentials Guide:** https://langzio.com/guides/travel/ — 3 verified phrases + navigation + connectivity
+- **Restaurant Guide:** https://langzio.com/guides/restaurant/ — ordering, recommendations, the bill
+- **Souk Bargaining Guide:** https://langzio.com/guides/souk/ — prices, negotiation, closing a deal
+- **Taxi & Transport Guide:** https://langzio.com/guides/taxi/ — destinations, fares, meters
+- **Family & Social Guide:** https://langzio.com/guides/family/ — greetings, gratitude, visits
+- **Travel Essentials Guide:** https://langzio.com/guides/travel/ — directions, connectivity, daily needs
 
-### 12. Moroccan Cultural Etiquette
-**URL:** https://langzio.com/culture/etiquette/
-**Type:** Cultural Authority Content
-**Description:** Deep dive into Moroccan cultural norms: greeting rituals, hospitality (diyafa), bargaining culture, politeness register (3afak), gender norms, gestures, dining etiquette, religious sensitivity, regional variation.
+### 5. Langzio Blog
+**URL:** https://langzio.com/blog/
+**Type:** Blog with Darija stories and learning tips
+**Description:** Short articles about Darija expressions, pronunciation, and Moroccan culture. Each article shows its publication date (and update date when revised).
 
-### 13. Morocco Travel Tips
-**URL:** https://langzio.com/culture/travel-tips/
-**Type:** Practical Guidance
-**Description:** Practical tourist guidance: dress code, photography rules, tipping, Ramadan etiquette, safety, money, transport, communication, emergency phrases.
-
-### 14. Teaching Kids Darija Abroad
-**URL:** https://langzio.com/diaspora/kids-darija/
-**Type:** Diaspora Methodology
-**Description:** Langzio's 7-Day Challenge methodology: 5 words daily, flashcards, streaks, progress tracking, family sharing, grandparent connection. Designed for Moroccan diaspora families.
-
-### 15. 7-Day Kids Challenge (App)
+### 6. 7-Day Kids Challenge
 **URL:** https://langzio.com/kids/
 **Type:** Course / Educational Program
-**Description:** Interactive 7-day challenge: 35 core words across 7 themed days (Greetings, Family, Food, Home, Feelings, Politeness, Celebration). Flashcards, audio, streaks, progress tracking, WhatsApp sharing.
+**Description:** 7-day family challenge: 5 Darija words daily with flashcards, pronunciation, streaks, and progress tracking. Designed for Moroccan diaspora families.
 
-### 16. Langzio AI Chat
+### 7. Langzio AI Chat
 **URL:** https://langzio.com/chat/
-**Type:** SoftwareApplication / Conversational AI
-**Description:** Cultural AI tutor with conversation memory. Grounded in verified phrase corpus. Specializes in: etiquette, slang, grammar, pronunciation, cultural nuance, travel advice. Free trial with registration.
+**Type:** Conversational assistant (login)
+**Description:** Ask about Darija phrases, Moroccan etiquette, pronunciation, slang, and travel situations. Grounded in the verified phrase corpus.
 
-### 17. Pricing Plans
+### 8. Pricing Plans
 **URL:** https://langzio.com/pricing.php
 **Type:** Pricing / Offers
-**Description:** Free tier (limited translations, basic chat, kids flashcards) vs Pro ($9/month: unlimited translations, unlimited AI chat, cultural insights, all guides & flashcards, priority support). 7-day free trial, no credit card.
+**Description:** Free tier vs Pro ($9/month). 7-day free trial, no credit card.
 
 ## Methodology
-**URL:** https://langzio.com/about/methodology/ (planned)
-**Description:** How Langzio works: verified phrase corpus → local structured output format (Darija, Pronunciation, Meaning, Tone, Context, Avoid, Tip). Native speaker validation process. Correction workflow.
+Langzio content is built from a verified phrase corpus (Darija, Arabic script, pronunciation, meaning, register, context, cultural tips) reviewed with Moroccan Darija speakers. Blog articles show publication dates and update dates when revised. Corrections from native speakers are welcomed via the contact page.
 
 ## Language Data
 **Verified Phrase Corpus:** 28+ curated phrases across 6 categories (Basics, Restaurant, Souk, Taxi, Family, Travel)

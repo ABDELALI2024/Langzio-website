@@ -81,7 +81,7 @@ define("LANGZIO_AI_MODE", "local");
 
 define("LANGZIO_CANONICAL_DOMAIN", langzio_env("CANONICAL_DOMAIN", "https://langzio.com"));
 define("LANGZIO_SITE_NAME", "Langzio");
-define("LANGZIO_SITE_DESCRIPTION", "Cultural language intelligence for Moroccan Darija — AI translation, cultural chat, verified phrases, and family learning.");
+define("LANGZIO_SITE_DESCRIPTION", "Langzio is a web application for learning and understanding Moroccan Darija through natural language, cultural context, pronunciation, and real-life situations.");
 
 // ─── Autoload core classes ─────────────────────────────
 $langzioClasses = __DIR__ . "/classes";

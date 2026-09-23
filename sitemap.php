@@ -18,21 +18,12 @@ $now = gmdate("Y-m-d\TH:i:s\Z");
 $urls = [
     // Core public pages
     ["url" => $baseUrl . "/", "changefreq" => "weekly", "priority" => "1.0"],
-    ["url" => $baseUrl . "/index.php", "changefreq" => "weekly", "priority" => "0.9"],
+
+    // Pillar + about (topical authority)
     
-    // Definition & Learning Hub Pages
-    ["url" => $baseUrl . "/what-is-darija/", "changefreq" => "monthly", "priority" => "0.8"],
-    ["url" => $baseUrl . "/darija-vs-arabic/", "changefreq" => "monthly", "priority" => "0.7"],
-    ["url" => $baseUrl . "/learn-darija/", "changefreq" => "monthly", "priority" => "0.8"],
-    ["url" => $baseUrl . "/darija-beginners/", "changefreq" => "monthly", "priority" => "0.7"],
-    ["url" => $baseUrl . "/darija-vocabulary/", "changefreq" => "monthly", "priority" => "0.7"],
-    ["url" => $baseUrl . "/darija-phrases/", "changefreq" => "monthly", "priority" => "0.7"],
-    ["url" => $baseUrl . "/darija-pronunciation/", "changefreq" => "monthly", "priority" => "0.7"],
-    ["url" => $baseUrl . "/arabizi-guide/", "changefreq" => "monthly", "priority" => "0.7"],
-    ["url" => $baseUrl . "/grammar/", "changefreq" => "yearly", "priority" => "0.5"],
-    
-    // Dictionary
-    ["url" => $baseUrl . "/dictionary/", "changefreq" => "weekly", "priority" => "0.8"],
+    // Pillar + about (topical authority)
+    ["url" => $baseUrl . "/learn/", "changefreq" => "monthly", "priority" => "0.9"],
+    ["url" => $baseUrl . "/about/", "changefreq" => "yearly", "priority" => "0.5"],
     
     // Translator (public demo)
     ["url" => $baseUrl . "/translator/", "changefreq" => "monthly", "priority" => "0.8"],
@@ -47,23 +38,7 @@ $urls = [
 
     // Blog
     ["url" => $baseUrl . "/blog/", "changefreq" => "weekly", "priority" => "0.7"],
-    
-    // Culture
-    ["url" => $baseUrl . "/culture/etiquette/", "changefreq" => "monthly", "priority" => "0.7"],
-    ["url" => $baseUrl . "/culture/travel-tips/", "changefreq" => "monthly", "priority" => "0.7"],
-    
-    // Diaspora
-    ["url" => $baseUrl . "/diaspora/kids-darija/", "changefreq" => "monthly", "priority" => "0.7"],
-    ["url" => $baseUrl . "/diaspora/language-preservation/", "changefreq" => "yearly", "priority" => "0.5"],
-    
-    // Auth pages (noindex but crawlable for discovery)
-    ["url" => $baseUrl . "/login.php", "changefreq" => "yearly", "priority" => "0.3"],
-    ["url" => $baseUrl . "/register.php", "changefreq" => "yearly", "priority" => "0.3"],
     ["url" => $baseUrl . "/pricing.php", "changefreq" => "monthly", "priority" => "0.5"],
-    
-    // Error/utility pages (noindex)
-    ["url" => $baseUrl . "/404.php", "changefreq" => "yearly", "priority" => "0.1"],
-    ["url" => $baseUrl . "/verify-email.php", "changefreq" => "yearly", "priority" => "0.1"],
     
     // Contact
     ["url" => $baseUrl . "/contact.php", "changefreq" => "yearly", "priority" => "0.5"],

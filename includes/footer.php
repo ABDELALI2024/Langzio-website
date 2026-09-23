@@ -13,7 +13,7 @@ $orgSchema = [
         "height" => 512,
         "caption" => "Langzio Logo"
     ],
-    "description" => "Cultural language intelligence platform for Moroccan Darija — AI translation, cultural chat, verified phrases, and family learning.",
+    "description" => "Langzio is a web application for learning and understanding Moroccan Darija through natural language, cultural context, pronunciation, and real-life situations.",
     "foundingDate" => "2026",
     "areaServed" => [
         "@type" => "Country",

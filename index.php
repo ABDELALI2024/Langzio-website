@@ -41,7 +41,7 @@ include "includes/head.php";
         </a>
         <nav class="lz-nav" id="lzNav" aria-label="Main navigation">
             <a href="#why">Why Langzio</a>
-            <a href="#learn-darija">Learn Darija</a>
+            <a href="learn.php">Learn Darija</a>
             <a href="guides.php">Guides</a>
             <a href="#travelers">For Travelers</a>
             <a href="#families">For Families</a>
@@ -194,7 +194,7 @@ include "includes/head.php";
                     <p><strong>Moroccan Darija</strong> is the everyday spoken Arabic variety used across Morocco. It is widely used in family life, cafés, shops, taxis, travel, and everyday conversations.</p>
                     <p><strong>Moroccan Arabic</strong> has developed through influences from Arabic, Amazigh, French, Spanish, and other languages. That mix is exactly what makes it lively — and why word-for-word translation often misses the point.</p>
                     <p>To <strong>learn Darija</strong> is to learn how Moroccans actually speak: greetings first, politeness always, and a different expression for every situation. Langzio teaches <strong>Darija</strong> the way it lives — in context.</p>
-                    <p><a class="lz-text-link" href="guides.php">Discover Moroccan Darija →</a></p>
+                    <p><a class="lz-text-link" href="learn.php">Discover Moroccan Darija →</a></p>
                 </div>
                 <div>
                     <h3 style="margin:0 0 4px;color:var(--lz-green-deep)">Explore Moroccan Darija</h3>
@@ -268,7 +268,7 @@ include "includes/head.php";
             <nav aria-label="Learn Darija">
                 <h3>Learn Darija</h3>
                 <ul>
-                    <li><a href="guides.php">Moroccan Darija</a></li>
+                    <li><a href="learn.php">Moroccan Darija</a></li>
                     <li><a href="guides.php">Darija phrases</a></li>
                     <li><a href="guides.php">Pronunciation</a></li>
                     <li><a href="blog.php">Dictionary</a></li>
@@ -296,7 +296,7 @@ include "includes/head.php";
             <nav aria-label="Langzio">
                 <h3>Langzio</h3>
                 <ul>
-                    <li><a href="#why">About</a></li>
+                    <li><a href="about.php">About</a></li>
                     <li><a href="guides.php">Guides</a></li>
                     <li><a href="blog.php">Blog</a></li>
                     <li><a href="contact.php">Contact</a></li>

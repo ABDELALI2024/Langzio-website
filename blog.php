@@ -27,7 +27,7 @@ function langzio_blog_find(string $slug): ?array
     try {
         $db = Database::connect();
         $stmt = $db->prepare("
-            SELECT slug, title, excerpt, content, published_at
+            SELECT slug, title, excerpt, content, published_at, updated_at
             FROM blog_posts
             WHERE slug = :slug AND status = 'published'
             LIMIT 1
@@ -71,6 +71,11 @@ $pageStructuredData = [
     "url" => LANGZIO_CANONICAL_DOMAIN . "/blog/" . ($isArticle && $post !== null ? $post["slug"] . "/" : ""),
     "name" => $isArticle && $post !== null ? $post["title"] : "Langzio Blog",
     "description" => $pageDescription,
+    "author" => [
+        "@type" => "Organization",
+        "@id" => LANGZIO_CANONICAL_DOMAIN . "#organization",
+        "name" => "Langzio"
+    ],
     "isPartOf" => [
         "@type" => "WebSite",
         "@id" => LANGZIO_CANONICAL_DOMAIN . "#website"
@@ -127,7 +132,11 @@ include "includes/head.php";
             <article class="card" itemscope itemtype="https://schema.org/BlogPosting">
                 <meta itemprop="name" content="<?php echo htmlspecialchars($post["title"]); ?>">
                 <?php if (!empty($post["published_at"])): ?>
-                    <p style="color:var(--muted);font-size:0.85rem"><?php echo htmlspecialchars(substr($post["published_at"], 0, 10)); ?></p>
+                    <p style="color:var(--muted);font-size:0.85rem">Published <?php echo htmlspecialchars(substr($post["published_at"], 0, 10)); ?><?php
+                        if (!empty($post["updated_at"]) && substr($post["updated_at"], 0, 10) > substr($post["published_at"], 0, 10)) {
+                            echo " · Updated " . htmlspecialchars(substr($post["updated_at"], 0, 10));
+                        }
+                    ?></p>
                 <?php endif; ?>
                 <div itemprop="articleBody" style="white-space:pre-wrap;line-height:1.7"><?php echo htmlspecialchars($post["content"]); ?></div>
                 <?php
