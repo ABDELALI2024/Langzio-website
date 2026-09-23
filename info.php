@@ -26,7 +26,7 @@ echo "<tr><td>classes/ dir</td><td>" . (is_dir(__DIR__ . "/classes") ? $ok : $fa
 try {
     require_once __DIR__ . "/config.php";
     echo "<tr><td>config.php</td><td>$ok</td></tr>";
-    echo "<tr><td>AI mode</td><td>local (no external provider)</td></tr>";
+    echo "<tr><td>AI provider key</td><td>" . (defined("GROQ_API_KEY") && GROQ_API_KEY ? $ok : "<span style='color:orange'>not set (local fallback)</span>") . "</td></tr>";
 } catch (Throwable $e) {
     echo "<tr><td>config.php</td><td>$fail " . htmlspecialchars($e->getMessage()) . "</td></tr>";
 }

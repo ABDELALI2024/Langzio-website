@@ -53,7 +53,7 @@ $pageStructuredData = [
         "Pronunciation Assistance",
         "Multi-turn Cultural Conversations"
     ],
-    "usesTechnology" => "Verified phrase corpus (local mode)",
+    "usesTechnology" => "RAG (Retrieval-Augmented Generation) with Llama 3.3 70B",
     "provider" => [
         "@type" => "Organization",
         "@id" => LANGZIO_CANONICAL_DOMAIN . "#organization"

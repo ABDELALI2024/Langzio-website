@@ -64,22 +64,60 @@ if (preg_match('/[\x00-\x08\x0E-\x1F]|\.(png|jpg|jpeg|gif|bmp|webp|svg)/i', $use
     exit;
 }
 
-// Local mode: answers come from the verified phrase corpus.
-// No external AI provider, no API keys.
+// RAG grounding first, then provider when configured, else local fallback.
 $ragContext = langzio_rag_context($userText);
 $ragUsed = $ragContext !== "";
 
+if (empty(OPENAI_API_KEY)) {
+    if ($mode === "chat") {
+        $fallback = langzio_local_chat_reply($userText, $ragContext);
+    } else {
+        $fallback = langzio_local_translate_reply($userText, $source, $target, $ragContext);
+    }
+    echo json_encode(["reply" => $fallback, "mock" => true, "rag_used" => $ragUsed]);
+    exit;
+}
+
 if ($mode === "chat") {
+    $messages = langzio_build_chat_messages($userText, $history, $ragContext);
+    $result = langzio_call_ai($messages, 0.5);
+
+    if (!$result["ok"]) {
+        http_response_code(500);
+        echo json_encode(["error" => $result["error"]]);
+        exit;
+    }
+
     echo json_encode([
-        "reply" => langzio_local_chat_reply($userText, $ragContext),
-        "mock" => true,
+        "reply" => $result["content"],
+        "mock" => false,
+        "rag_used" => $ragUsed,
+    ]);
+    exit;
+}
+
+$messages = langzio_build_translate_messages($userText, $source, $target, $ragContext);
+$result = langzio_call_ai($messages, 0.3);
+
+if (!$result["ok"]) {
+    http_response_code(500);
+    echo json_encode(["error" => $result["error"]]);
+    exit;
+}
+
+$structured = langzio_parse_structured_translation($result["content"]);
+if ($structured !== null) {
+    echo json_encode([
+        "reply" => langzio_format_structured_reply($structured),
+        "structured" => $structured,
+        "mock" => false,
         "rag_used" => $ragUsed,
     ]);
     exit;
 }
 
 echo json_encode([
-    "reply" => langzio_local_translate_reply($userText, $source, $target, $ragContext),
-    "mock" => true,
+    "reply" => $result["content"],
+    "mock" => false,
     "rag_used" => $ragUsed,
 ]);

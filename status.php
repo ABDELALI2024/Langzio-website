@@ -6,5 +6,5 @@ require_once __DIR__ . "/config.php";
 
 echo json_encode([
     "ok" => true,
-    "mode" => "local",
+    "api_ready" => !empty(GROQ_API_KEY),
 ], JSON_PRETTY_PRINT);

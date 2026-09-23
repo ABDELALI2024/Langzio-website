@@ -29,6 +29,8 @@ phpMyAdmin → select DB → Import → `database/schema.sql`.
 ## 7. Create `.env`
 File Manager → `public_html/.env` (copy structure from `.env.example`, fill real values):
 ```
+# Optional — local corpus fallback works without it. Fresh key only.
+GROQ_API_KEY=
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=
@@ -73,8 +75,8 @@ Register → login → dashboard → logout. Trial banner shows days remaining. 
 ## 14. Test database
 Register a user → check `users` + `subscriptions` rows (trial 7 days). Update WhatsApp number in profile → check `users.whatsapp_*` columns.
 
-## 15. Test local answers (no external AI)
-`POST /api.php` `{"mode":"translate","text":"hello"}` → JSON reply built from the verified corpus, `mock:true`, `rag_used` flag. No key ever appears in JS/network — all answers are generated server-side from local data.
+## 15. Test AI answers (Groq when configured, local fallback otherwise)
+`POST /api.php` `{"mode":"translate","text":"hello"}` → with valid `GROQ_API_KEY`: rich reply, `mock:false`. Without key: local corpus reply, `mock:true`. Key never appears in JS/network — backend-only call. `/status.php` shows `api_ready` accordingly.
 
 ## 16. Delete debug files
 From `public_html/` delete: `info.php`, `seed.php` (if uploaded), `*.zip`.

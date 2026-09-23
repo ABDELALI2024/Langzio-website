@@ -74,10 +74,15 @@ function langzio_env(string $key, string $default = ""): string
     return ($fromGetenv !== false && $fromGetenv !== "") ? (string) $fromGetenv : $default;
 }
 
-// Langzio runs in local mode — no external AI provider.
-// Answers come from the verified phrase corpus (data/corpus.json),
-// guides, and kids flashcards. No API keys required.
-define("LANGZIO_AI_MODE", "local");
+// External AI provider (Groq). Key lives ONLY in server .env — never commit it.
+// When the key is missing, api.php serves local corpus answers instead.
+define("GROQ_API_KEY", langzio_env("GROQ_API_KEY"));
+define("GROQ_API_URL", "https://api.groq.com/openai/v1/chat/completions");
+define("GROQ_MODEL", "llama-3.3-70b-versatile");
+
+define("OPENAI_API_KEY", GROQ_API_KEY);
+define("OPENAI_API_URL", GROQ_API_URL);
+define("OPENAI_MODEL", GROQ_MODEL);
 
 define("LANGZIO_CANONICAL_DOMAIN", langzio_env("CANONICAL_DOMAIN", "https://langzio.com"));
 define("LANGZIO_SITE_NAME", "Langzio");
