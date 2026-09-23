@@ -18,7 +18,9 @@ $guidePhrases = [
             ["darija" => "Salam, wach kayn blassa?", "pronunciation" => "sa-lam, wach kayn blas-sa", "meaning" => "Hello, is there a table available?", "register" => "polite", "tip" => "Always start with Salam. Add '3afak' to soften."],
             ["darija" => "Shno katnsa7ni?", "pronunciation" => "shno kat-nsa7-ni", "meaning" => "What do you recommend?", "register" => "neutral", "tip" => "Locals appreciate when you ask for their favorite dish."],
             ["darija" => "3afak, bghit had lplat.", "pronunciation" => "afak, bghit had l-plat", "meaning" => "Please, I would like this dish.", "register" => "polite", "tip" => "Point at the menu while saying this for clarity."],
-            ["darija" => "3afak, jib lia l7sab.", "pronunciation" => "afak, jib li-ya l-h-sab", "meaning" => "Please bring me the bill.", "register" => "polite", "tip" => "Make eye contact and smile when asking."]
+            ["darija" => "3afak, jib lia l7sab.", "pronunciation" => "afak, jib li-ya l-h-sab", "meaning" => "Please bring me the bill.", "register" => "polite", "tip" => "Make eye contact and smile when asking."],
+            ["darija" => "Bsa7a.", "pronunciation" => "bsa-7a", "meaning" => "Enjoy your meal.", "register" => "warm", "tip" => "Say it when food arrives — to anyone at the table."],
+            ["darija" => "Lmenu, 3afak.", "pronunciation" => "l-me-nu, afak", "meaning" => "The menu, please.", "register" => "polite", "tip" => "First thing to ask when you sit down."]
         ],
         "culturalTip" => "\"3afak\" (please) instantly makes your tone warmer and more local."
     ],
@@ -29,7 +31,9 @@ $guidePhrases = [
             ["darija" => "Bchhal hadchi?", "pronunciation" => "bch-hal had-chi", "meaning" => "How much is this?", "register" => "neutral", "tip" => "Ask before touching items to show respect."],
             ["darija" => "Ghaliya chwiya.", "pronunciation" => "gha-li-ya chwi-ya", "meaning" => "A bit expensive.", "register" => "casual", "tip" => "First counter-offer — expect to negotiate from here."],
             ["darija" => "A3tini taman lakhir.", "pronunciation" => "a3-ti-ni ta-man la-khir", "meaning" => "Give me your final price.", "register" => "direct", "tip" => "Use when ready to close the deal."],
-            ["darija" => "Safi, ntafa9na.", "pronunciation" => "sa-fi, nta-fa9-na", "meaning" => "Deal, agreed.", "register" => "neutral", "tip" => "Seal with a handshake and smile."]
+            ["darija" => "Safi, ntafa9na.", "pronunciation" => "sa-fi, nta-fa9-na", "meaning" => "Deal, agreed.", "register" => "neutral", "tip" => "Seal with a handshake and smile."],
+            ["darija" => "Shhal?", "pronunciation" => "sh-hal", "meaning" => "How much? (short form)", "register" => "neutral", "tip" => "Quickest way to ask the price anywhere."],
+            ["darija" => "N9ass chwiya.", "pronunciation" => "n9ass chwi-ya", "meaning" => "Lower the price a bit.", "register" => "casual", "tip" => "Smile when you say it — bargaining stays friendly."]
         ],
         "culturalTip" => "Bargaining is normal in many souks, but stay friendly and smile. It's social interaction, not conflict."
     ],
@@ -41,7 +45,9 @@ $guidePhrases = [
             ["darija" => "Bghit nmshi l...", "pronunciation" => "bghit nmshi l", "meaning" => "I want to go to...", "register" => "neutral", "tip" => "Have your destination written in Arabic if possible."],
             ["darija" => "Bchhal lprix?", "pronunciation" => "bch-hal l-prix", "meaning" => "How much is the fare?", "register" => "neutral", "tip" => "Always ask before getting in petit taxis."],
             ["darija" => "Dir compteur, 3afak.", "pronunciation" => "dir kom-pt-eur, afak", "meaning" => "Please use the meter.", "register" => "polite", "tip" => "Legal requirement in cities — insist politely."],
-            ["darija" => "Waqaf hna, 3afak.", "pronunciation" => "wa-qaf hna, afak", "meaning" => "Stop here, please.", "register" => "polite", "tip" => "Use landmarks, not just addresses."]
+            ["darija" => "Waqaf hna, 3afak.", "pronunciation" => "wa-qaf hna, afak", "meaning" => "Stop here, please.", "register" => "polite", "tip" => "Use landmarks, not just addresses."],
+            ["darija" => "Dini l matar, 3afak.", "pronunciation" => "di-ni l ma-tar, afak", "meaning" => "Take me to the airport, please.", "register" => "polite", "tip" => "Say the destination first, then 3afak."],
+            ["darija" => "Shhal khassni nkhallas?", "pronunciation" => "sh-hal khass-ni n-khallass", "meaning" => "How much do I have to pay?", "register" => "neutral", "tip" => "Ask at the end of the ride, before paying."]
         ],
         "culturalTip" => "Confirm the price before entering when meter use is unclear. Petit taxis use meters; grand taxis are shared fixed-route."
     ],
@@ -53,7 +59,9 @@ $guidePhrases = [
             ["darija" => "Labas 3likom?", "pronunciation" => "la-bas 3li-kom", "meaning" => "How is everyone?", "register" => "warm", "tip" => "Ask about the whole family, not just the person."],
             ["darija" => "Shukran bzzaf.", "pronunciation" => "shuk-ran bz-zaf", "meaning" => "Thank you very much.", "register" => "warm", "tip" => "Generous gratitude is expected and appreciated."],
             ["darija" => "Allah yhafdek.", "pronunciation" => "al-lah y-haf-dek", "meaning" => "May God protect you.", "register" => "blessing", "tip" => "Common response to thanks or goodbye."],
-            ["darija" => "Mtsharfin b ziyartkom.", "pronunciation" => "mts-har-fin b zi-yar-tkom", "meaning" => "We are honored by your visit.", "register" => "formal", "tip" => "Host says this to guests — reciprocal respect."]
+            ["darija" => "Mtsharfin b ziyartkom.", "pronunciation" => "mts-har-fin b zi-yar-tkom", "meaning" => "We are honored by your visit.", "register" => "formal", "tip" => "Host says this to guests — reciprocal respect."],
+            ["darija" => "Mabrouk.", "pronunciation" => "mab-rouk", "meaning" => "Congratulations.", "register" => "warm", "tip" => "For weddings, births, exams, new jobs — everything happy."],
+            ["darija" => "Tbarak Allah 3lik.", "pronunciation" => "tba-rak al-lah 3lik", "meaning" => "God bless you / well done.", "register" => "warm", "tip" => "Praise for kids, cooks, and good news."]
         ],
         "culturalTip" => "Family settings value politeness and appreciation more than perfect grammar. Elders are greeted first."
     ],
@@ -63,7 +71,9 @@ $guidePhrases = [
         "phrases" => [
             ["darija" => "Fin kayn...?", "pronunciation" => "fin kayn", "meaning" => "Where is...?", "register" => "neutral", "tip" => "Add location: 'Fin kayn l-hammam?' (Where is the bathroom?)"],
             ["darija" => "Bghit nmshi l...", "pronunciation" => "bghit nmshi l", "meaning" => "I want to go to...", "register" => "neutral", "tip" => "Works for taxis, walking directions, buses."],
-            ["darija" => "Wach kayn wifi?", "pronunciation" => "wach kayn wai-fai", "meaning" => "Is there WiFi?", "register" => "casual", "tip" => "Essential in cafés and hotels."]
+            ["darija" => "Wach kayn wifi?", "pronunciation" => "wach kayn wai-fai", "meaning" => "Is there WiFi?", "register" => "casual", "tip" => "Essential in cafés and hotels."],
+            ["darija" => "Ana tleft.", "pronunciation" => "a-na tleft", "meaning" => "I'm lost.", "register" => "neutral", "tip" => "Say it with a smile — Moroccans love helping with directions."],
+            ["darija" => "Lgare fin kayn?", "pronunciation" => "l-gar fin kayn", "meaning" => "Where is the train station?", "register" => "neutral", "tip" => "Replace lgare with lmatar (airport) or any place."]
         ],
         "culturalTip" => "Moroccans are generally helpful with directions — start with Salam and they'll often walk you there."
     ]

@@ -528,7 +528,22 @@ function initKidsMode() {
         { darija: "Bghit nmshi l medina", english: "I want to go to the medina" },
         { darija: "Wach kayn wifi?", english: "Is there WiFi?" },
         { darija: "Ghaliya chwiya", english: "It's a bit expensive" },
-        { darija: "Safi, ntafa9na", english: "Deal!" }
+        { darija: "Safi, ntafa9na", english: "Deal!" },
+        { darija: "Mama", english: "Mom" },
+        { darija: "Baba", english: "Dad" },
+        { darija: "Khobz", english: "Bread" },
+        { darija: "Lma", english: "Water" },
+        { darija: "Atay", english: "Tea" },
+        { darija: "Dar", english: "House / home" },
+        { darija: "Madrassa", english: "School" },
+        { darija: "Ktab", english: "Book" },
+        { darija: "Shams", english: "Sun" },
+        { darija: "Qamar", english: "Moon" },
+        { darija: "Mchich", english: "Cat" },
+        { darija: "Kelb", english: "Dog" },
+        { darija: "Zwin", english: "Beautiful" },
+        { darija: "Kbir", english: "Big" },
+        { darija: "Sghir", english: "Small" }
     ];
 
     let index = 0;
