@@ -147,12 +147,6 @@ include "includes/head.php";
             </article>
         </section>
 
-        <section class="card" style="text-align:center" aria-labelledby="trial-title">
-            <h2 id="trial-title">Start with a free trial</h2>
-            <p style="color:var(--muted)">7 days full access. No credit card needed.</p>
-            <a class="btn btn-primary" href="<?php echo htmlspecialchars(langzio_url('register.php')); ?>">Create free account</a>
-        </section>
-
         <section class="card" aria-labelledby="faq-title" style="margin-top:24px">
             <h2 id="faq-title">Frequently Asked Questions</h2>
             <dl style="margin-top:16px">
