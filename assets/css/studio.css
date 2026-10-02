@@ -108,6 +108,63 @@ body.ai-studio .app-content {
     animation: studio-pulse 1s infinite ease-in-out;
 }
 
+.translation-history {
+    border-radius: 18px;
+}
+
+.history-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.history-header h2 {
+    margin: 0 0 4px;
+}
+
+.translation-history .muted {
+    margin: 0;
+    color: var(--muted);
+}
+
+.history-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    padding: 14px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.history-item p {
+    margin: 3px 0 0;
+    line-height: 1.45;
+}
+
+.history-item small {
+    color: var(--muted);
+}
+
+.history-delete {
+    align-self: center;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 8px;
+    padding: 6px 9px;
+    cursor: pointer;
+}
+
+.history-delete:hover {
+    color: var(--text);
+    border-color: var(--red);
+}
+
+@media (max-width: 700px) {
+    .history-header { align-items: stretch; flex-direction: column; }
+}
+
 /* ---------- translator panels ---------- */
 .studio-panels {
     display: grid;
