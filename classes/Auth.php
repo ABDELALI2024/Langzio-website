@@ -37,6 +37,7 @@ class Auth
         self::startSession();
         $headerToken = $_SERVER["HTTP_X_CSRF_TOKEN"] ?? null;
         $token = $token ?? (is_string($headerToken) ? $headerToken : null);
+        $token = is_string($token) ? trim($token) : null;
         return is_string($token) && $token !== "" && !empty($_SESSION["csrf_token"]) && hash_equals((string) $_SESSION["csrf_token"], $token);
     }
 
