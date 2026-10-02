@@ -32,7 +32,10 @@ if (!Auth::check()) {
 langzio_rate_limit_check(60);
 if (!Auth::verifyCsrf($_SERVER["HTTP_X_CSRF_TOKEN"] ?? null)) {
     http_response_code(419);
-    echo json_encode(["error" => "Invalid security token"]);
+    echo json_encode([
+        "error" => "Invalid security token",
+        "csrf_token" => Auth::csrfToken(),
+    ]);
     exit;
 }
 

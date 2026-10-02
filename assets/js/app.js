@@ -313,17 +313,26 @@ function initDashboard() {
     }
 }
 
-  async function postToApi(payload) {
-  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || "";
-  const response = await fetch(`${langzioBase()}/api.php`, {
-  method: "POST",
-  headers: {
-  "Content-Type": "application/json",
-  ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {})
-  },
-  body: JSON.stringify(payload)
-  });
+async function postToApi(payload, retried = false) {
+    const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+    const csrfToken = tokenMeta?.content || "";
+    const apiUrl = new URL(`${langzioBase()}/api.php`, window.location.origin).toString();
+    const response = await fetch(apiUrl, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json",
+            ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {})
+        },
+        body: JSON.stringify(payload)
+    });
     const data = await response.json();
+
+    if (response.status === 419 && !retried && data.csrf_token) {
+        if (tokenMeta) tokenMeta.content = data.csrf_token;
+        return postToApi(payload, true);
+    }
+
     if (!response.ok) {
         throw new Error(data.error || "Request failed");
     }
