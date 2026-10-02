@@ -6,7 +6,7 @@ $allowedOrigin = "https://langzio.com";
 header("Access-Control-Allow-Origin: " . $allowedOrigin);
 header("Vary: Origin");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Headers: Content-Type, X-CSRF-Token");
 
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(204);
@@ -30,6 +30,11 @@ if (!Auth::check()) {
 }
 
 langzio_rate_limit_check(60);
+if (!Auth::verifyCsrf($_SERVER["HTTP_X_CSRF_TOKEN"] ?? null)) {
+    http_response_code(419);
+    echo json_encode(["error" => "Invalid security token"]);
+    exit;
+}
 
 $rawInput = file_get_contents("php://input");
 $payload = json_decode($rawInput, true);
