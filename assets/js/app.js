@@ -313,12 +313,16 @@ function initDashboard() {
     }
 }
 
-async function postToApi(payload) {
-    const response = await fetch(`${langzioBase()}/api.php`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-    });
+  async function postToApi(payload) {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || "";
+  const response = await fetch(`${langzioBase()}/api.php`, {
+  method: "POST",
+  headers: {
+  "Content-Type": "application/json",
+  ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {})
+  },
+  body: JSON.stringify(payload)
+  });
     const data = await response.json();
     if (!response.ok) {
         throw new Error(data.error || "Request failed");
