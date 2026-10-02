@@ -1,5 +1,7 @@
 <?php
 header("Content-Type: application/json; charset=utf-8");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
 header("X-Content-Type-Options: nosniff");
 
 $allowedOrigin = "https://langzio.com";
@@ -91,8 +93,13 @@ if ($mode === "chat") {
     $result = langzio_call_ai($messages, 0.5);
 
     if (!$result["ok"]) {
-        http_response_code(500);
-        echo json_encode(["error" => $result["error"]]);
+        echo json_encode([
+            "reply" => langzio_local_chat_reply($userText, $ragContext),
+            "mock" => true,
+            "degraded" => true,
+            "error" => "AI service temporarily unavailable; showing local guidance.",
+            "rag_used" => $ragUsed,
+        ]);
         exit;
     }
 
@@ -108,8 +115,13 @@ $messages = langzio_build_translate_messages($userText, $source, $target, $ragCo
 $result = langzio_call_ai($messages, 0.3);
 
 if (!$result["ok"]) {
-    http_response_code(500);
-    echo json_encode(["error" => $result["error"]]);
+    echo json_encode([
+        "reply" => langzio_local_translate_reply($userText, $source, $target, $ragContext),
+        "mock" => true,
+        "degraded" => true,
+        "error" => "AI service temporarily unavailable; showing local guidance.",
+        "rag_used" => $ragUsed,
+    ]);
     exit;
 }
 
