@@ -81,15 +81,32 @@ function langzio_env(string $key, string $default = ""): string
     return ($fromGetenv !== false && $fromGetenv !== "") ? (string) $fromGetenv : $default;
 }
 
-// External AI provider (Groq). Key lives ONLY in server .env — never commit it.
-// When the key is missing, api.php serves local corpus answers instead.
-define("GROQ_API_KEY", langzio_env("GROQ_API_KEY"));
+// OpenAI-compatible AI provider. The key lives ONLY in the server .env — never commit it.
+// xAI/Grok keys from console.x.ai use the xAI endpoint; GROQ_API_KEY remains
+// supported for existing installations that explicitly set AI_PROVIDER=groq.
+$aiProvider = strtolower(langzio_env("AI_PROVIDER", "xai"));
+$aiKey = langzio_env("XAI_API_KEY", "");
+$aiUrl = "https://api.x.ai/v1/chat/completions";
+$aiModel = langzio_env("XAI_MODEL", "grok-4.6");
+
+if ($aiProvider === "groq") {
+    $aiKey = langzio_env("GROQ_API_KEY", "");
+    $aiUrl = "https://api.groq.com/openai/v1/chat/completions";
+    $aiModel = langzio_env("GROQ_MODEL", "llama-3.3-70b-versatile");
+}
+
+// Backward compatibility: older deployments may have stored the provider key
+// under GROQ_API_KEY while switching to a Grok key in the xAI console.
+if ($aiKey === "" && $aiProvider !== "groq") {
+    $aiKey = langzio_env("GROQ_API_KEY", "");
+}
+
+define("GROQ_API_KEY", langzio_env("GROQ_API_KEY", ""));
 define("GROQ_API_URL", "https://api.groq.com/openai/v1/chat/completions");
 define("GROQ_MODEL", langzio_env("GROQ_MODEL", "llama-3.3-70b-versatile"));
-
-define("OPENAI_API_KEY", GROQ_API_KEY);
-define("OPENAI_API_URL", GROQ_API_URL);
-define("OPENAI_MODEL", GROQ_MODEL);
+define("OPENAI_API_KEY", $aiKey);
+define("OPENAI_API_URL", $aiUrl);
+define("OPENAI_MODEL", $aiModel);
 
 define("LANGZIO_CANONICAL_DOMAIN", langzio_env("CANONICAL_DOMAIN", "https://langzio.com"));
 define("LANGZIO_SITE_NAME", "Langzio");
