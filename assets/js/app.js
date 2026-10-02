@@ -317,11 +317,13 @@ async function postToApi(payload, retried = false) {
     const tokenMeta = document.querySelector('meta[name="csrf-token"]');
     const csrfToken = tokenMeta?.content || "";
     const apiUrl = new URL(`${langzioBase()}/api.php`, window.location.origin).toString();
-    const response = await fetch(apiUrl, {
+    const response = await fetch(`${apiUrl}?_=${Date.now()}`, {
         method: "POST",
-        credentials: "same-origin",
+        credentials: "include",
+        cache: "no-store",
         headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
             ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {})
         },
         body: JSON.stringify(payload)
