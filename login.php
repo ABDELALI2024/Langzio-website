@@ -6,6 +6,7 @@ Auth::startSession();
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    Auth::requireCsrf();
     $email    = trim($_POST["email"] ?? "");
     $password = $_POST["password"] ?? "";
 
@@ -64,6 +65,7 @@ include "includes/head.php";
     <?php endif; ?>
 
     <form method="post" class="auth-form" novalidate>
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(Auth::csrfToken(), ENT_QUOTES, 'UTF-8'); ?>">
         <label>
             Email
             <input type="email" name="email" required autocomplete="email" inputmode="email"

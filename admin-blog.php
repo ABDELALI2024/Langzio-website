@@ -12,8 +12,13 @@ if ($adminKey === "") {
     exit;
 }
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    Auth::requireCsrf();
+}
+
 if (!empty($_POST["admin_key"])) {
     if (hash_equals($adminKey, (string) $_POST["admin_key"])) {
+        session_regenerate_id(true);
         $_SESSION["langzio_blog_admin"] = 1;
     } else {
         $loginError = "Invalid key.";
@@ -36,6 +41,7 @@ if (empty($_SESSION["langzio_blog_admin"])) {
             <div class="form-feedback form-error" role="alert"><?php echo htmlspecialchars($loginError); ?></div>
         <?php endif; ?>
         <form method="post" class="auth-form">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(Auth::csrfToken(), ENT_QUOTES, 'UTF-8'); ?>">
             <label>Admin key
                 <input type="password" name="admin_key" required autocomplete="off">
             </label>
@@ -193,6 +199,7 @@ include "includes/head.php";
         <section class="card" aria-labelledby="editor-title">
             <h2 id="editor-title"><?php echo $editing ? "Edit article" : "New article"; ?></h2>
             <form method="post" class="auth-form" style="max-width:640px">
+                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(Auth::csrfToken(), ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="crud" value="<?php echo $editing ? "update" : "create"; ?>">
                 <?php if ($editing): ?>
                     <input type="hidden" name="id" value="<?php echo (int) $editing["id"]; ?>">
@@ -242,11 +249,13 @@ include "includes/head.php";
                             <span style="display:flex;gap:8px">
                                 <a class="btn btn-secondary compact" href="admin-blog.php?edit=<?php echo (int) $item["id"]; ?>">Edit</a>
                                 <form method="post" style="display:inline">
+                                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(Auth::csrfToken(), ENT_QUOTES, 'UTF-8'); ?>">
                                     <input type="hidden" name="crud" value="<?php echo $item["status"] === "published" ? "unpublish" : "publish"; ?>">
                                     <input type="hidden" name="id" value="<?php echo (int) $item["id"]; ?>">
                                     <button class="btn btn-secondary compact" type="submit"><?php echo $item["status"] === "published" ? "Unpublish" : "Publish"; ?></button>
                                 </form>
                                 <form method="post" style="display:inline" onsubmit="return confirm('Delete this article?');">
+                                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(Auth::csrfToken(), ENT_QUOTES, 'UTF-8'); ?>">
                                     <input type="hidden" name="crud" value="delete">
                                     <input type="hidden" name="id" value="<?php echo (int) $item["id"]; ?>">
                                     <button class="btn btn-secondary compact" type="submit">Delete</button>
