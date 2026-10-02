@@ -36,14 +36,6 @@ if (!Auth::check()) {
 }
 
 langzio_rate_limit_check(60);
-if (!Auth::verifyCsrf($_SERVER["HTTP_X_CSRF_TOKEN"] ?? null)) {
-    http_response_code(419);
-    echo json_encode([
-        "error" => "Invalid security token",
-        "csrf_token" => Auth::csrfToken(),
-    ]);
-    exit;
-}
 
 $rawInput = file_get_contents("php://input");
 $payload = json_decode($rawInput, true);
@@ -51,6 +43,16 @@ $payload = json_decode($rawInput, true);
 if (!is_array($payload)) {
     http_response_code(400);
     echo json_encode(["error" => "Invalid JSON payload"]);
+    exit;
+}
+
+$csrfToken = $_SERVER["HTTP_X_CSRF_TOKEN"] ?? ($payload["csrf_token"] ?? null);
+if (!Auth::verifyCsrf(is_string($csrfToken) ? $csrfToken : null)) {
+    http_response_code(419);
+    echo json_encode([
+        "error" => "Invalid security token",
+        "csrf_token" => Auth::csrfToken(),
+    ]);
     exit;
 }
 
