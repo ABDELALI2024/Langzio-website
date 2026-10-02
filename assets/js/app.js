@@ -190,10 +190,12 @@ function initPwa() {
         navigator.serviceWorker.register(`${langzioBase()}/sw.js`).catch(() => {});
     }
 
-    window.addEventListener("beforeinstallprompt", (event) => {
-        event.preventDefault();
-        window.deferredPrompt = event;
-    });
+window.addEventListener("beforeinstallprompt", (event) => {
+  const installButtons = document.querySelectorAll("#installAppBtn");
+  if (!installButtons.length) return;
+  event.preventDefault();
+  window.deferredPrompt = event;
+  });
 
     document.querySelectorAll("#installAppBtn").forEach((btn) => {
         btn.addEventListener("click", async () => {
@@ -326,7 +328,7 @@ async function postToApi(payload, retried = false) {
             "Cache-Control": "no-cache",
             ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {})
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ ...payload, ...(csrfToken ? { csrf_token: csrfToken } : {}) })
     });
     const data = await response.json();
 
