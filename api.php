@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 require_once "config.php";
 require_once "classes/Auth.php";
 require_once "includes/langzio-ai.php";
+require_once "classes/TranslationHistory.php";
 
 if (!Auth::check()) {
     http_response_code(401);
@@ -57,6 +58,24 @@ if (!Auth::verifyCsrf(is_string($csrfToken) ? $csrfToken : null)) {
 }
 
 $mode = $payload["mode"] ?? "translate";
+$user = Auth::user();
+
+if ($mode === "history") {
+    echo json_encode(["history" => TranslationHistory::listForUser((int) $user["id"])]);
+    exit;
+}
+
+if ($mode === "delete_history") {
+    $historyId = filter_var($payload["id"] ?? null, FILTER_VALIDATE_INT);
+    if (!$historyId) {
+        http_response_code(422);
+        echo json_encode(["error" => "Invalid history item"]);
+        exit;
+    }
+    echo json_encode(["deleted" => TranslationHistory::deleteForUser((int) $user["id"], $historyId)]);
+    exit;
+}
+
 $userText = trim((string) ($payload["text"] ?? ""));
 $source = trim((string) ($payload["source"] ?? "english"));
 $target = trim((string) ($payload["target"] ?? "darija"));
@@ -90,6 +109,9 @@ if (empty(OPENAI_API_KEY)) {
     } else {
         $fallback = langzio_local_translate_reply($userText, $source, $target, $ragContext);
     }
+    if ($mode === "translate") {
+        TranslationHistory::add((int) $user["id"], $source, $target, $userText, $fallback, null);
+    }
     echo json_encode(["reply" => $fallback, "mock" => true, "rag_used" => $ragUsed]);
     exit;
 }
@@ -121,8 +143,10 @@ $messages = langzio_build_translate_messages($userText, $source, $target, $ragCo
 $result = langzio_call_ai($messages, 0.3);
 
 if (!$result["ok"]) {
+    $fallback = langzio_local_translate_reply($userText, $source, $target, $ragContext);
+    TranslationHistory::add((int) $user["id"], $source, $target, $userText, $fallback, null);
     echo json_encode([
-        "reply" => langzio_local_translate_reply($userText, $source, $target, $ragContext),
+        "reply" => $fallback,
         "mock" => true,
         "degraded" => true,
         "error" => "AI service temporarily unavailable; showing local guidance.",
@@ -133,8 +157,10 @@ if (!$result["ok"]) {
 
 $structured = langzio_parse_structured_translation($result["content"]);
 if ($structured !== null) {
+    $reply = langzio_format_structured_reply($structured);
+    TranslationHistory::add((int) $user["id"], $source, $target, $userText, $reply, $structured);
     echo json_encode([
-        "reply" => langzio_format_structured_reply($structured),
+        "reply" => $reply,
         "structured" => $structured,
         "mock" => false,
         "rag_used" => $ragUsed,
@@ -142,6 +168,7 @@ if ($structured !== null) {
     exit;
 }
 
+TranslationHistory::add((int) $user["id"], $source, $target, $userText, $result["content"], null);
 echo json_encode([
     "reply" => $result["content"],
     "mock" => false,

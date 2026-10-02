@@ -139,6 +139,18 @@ include "includes/head.php";
             </div>
         </div>
         <button class="studio-go" id="translateBtn" type="button">Translate with AI →</button>
+
+        <section class="card translation-history" aria-labelledby="history-title" style="margin-top:24px">
+            <div class="history-header">
+                <div>
+                    <h2 id="history-title">Translation history</h2>
+                    <p class="muted">Your latest translations, saved securely to your account.</p>
+                </div>
+                <button class="studio-mini-btn" id="refreshHistoryBtn" type="button">Refresh</button>
+            </div>
+            <div id="translationHistory" aria-live="polite"><p class="muted">Loading history…</p></div>
+        </section>
+
         <script>
         document.addEventListener("DOMContentLoaded", () => {
             const input = document.getElementById("translatorInput");

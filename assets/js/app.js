@@ -371,6 +371,8 @@ function escapeHtml(text) {
 
 function initTranslator() {
     const input = document.getElementById("translatorInput");
+    const historyEl = document.getElementById("translationHistory");
+    const refreshHistoryBtn = document.getElementById("refreshHistoryBtn");
     const output = document.getElementById("translatorOutput");
     const structuredEl = document.getElementById("structuredOutput");
     const button = document.getElementById("translateBtn");
@@ -380,6 +382,44 @@ function initTranslator() {
     const swapBtn = document.getElementById("swapLang");
 
     if (!input || !output || !button || !loading || !sourceLang || !targetLang || !swapBtn) return;
+
+    const renderHistory = (items) => {
+        if (!historyEl) return;
+        if (!items.length) {
+            historyEl.innerHTML = '<p class="muted">No translations yet. Your completed translations will appear here.</p>';
+            return;
+        }
+        historyEl.innerHTML = items.map((item) => {
+            const date = new Date(item.created_at.replace(' ', 'T')).toLocaleString();
+            return `<article class="history-item"><div><small>${escapeHtml(item.source_language)} → ${escapeHtml(item.target_language)} · ${escapeHtml(date)}</small><p><strong>${escapeHtml(item.input_text)}</strong></p><p>${escapeHtml(item.output_text)}</p></div><button class="history-delete" type="button" data-history-id="${Number(item.id)}" aria-label="Delete translation">Delete</button></article>`;
+        }).join('');
+    };
+
+    const loadHistory = async () => {
+        if (!historyEl) return;
+        try {
+            const data = await postToApi({ mode: "history" });
+            renderHistory(Array.isArray(data.history) ? data.history : []);
+        } catch (error) {
+            historyEl.innerHTML = `<p class="muted">Unable to load history: ${escapeHtml(error.message || "Request failed")}</p>`;
+        }
+    };
+
+    if (historyEl) {
+        historyEl.addEventListener("click", async (event) => {
+            const deleteButton = event.target.closest("[data-history-id]");
+            if (!deleteButton) return;
+            deleteButton.disabled = true;
+            try {
+                await postToApi({ mode: "delete_history", id: Number(deleteButton.dataset.historyId) });
+                await loadHistory();
+            } catch (error) {
+                deleteButton.disabled = false;
+            }
+        });
+        loadHistory();
+    }
+    if (refreshHistoryBtn) refreshHistoryBtn.addEventListener("click", loadHistory);
 
     swapBtn.addEventListener("click", () => {
         const temp = sourceLang.value;
@@ -413,6 +453,7 @@ function initTranslator() {
             } else {
                 output.classList.remove("hidden");
             }
+            if (historyEl) loadHistory();
             if (!data.mock) {
                 bumpStat("translations");
                 trackEvent("translate", { source: sourceLang.value, target: targetLang.value, rag: !!data.rag_used });
