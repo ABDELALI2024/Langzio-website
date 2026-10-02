@@ -1,12 +1,19 @@
 <?php
 function langzio_base_path(): string
 {
+    $configured = trim(langzio_env("BASE_PATH", ""));
+    if ($configured !== "") {
+        return "/" . trim(str_replace("\\", "/", $configured), "/");
+    }
+
+    $forwardedPrefix = trim((string) ($_SERVER["HTTP_X_FORWARDED_PREFIX"] ?? ""));
+    if ($forwardedPrefix !== "") {
+        return "/" . trim($forwardedPrefix, "/");
+    }
+
     $script = str_replace("\\", "/", $_SERVER["SCRIPT_NAME"] ?? "/index.php");
     $dir = dirname($script);
-    if ($dir === "/" || $dir === "\\" || $dir === ".") {
-        return "";
-    }
-    return rtrim($dir, "/");
+    return ($dir === "/" || $dir === "\\" || $dir === ".") ? "" : rtrim($dir, "/");
 }
 
 function langzio_url(string $path = ""): string
