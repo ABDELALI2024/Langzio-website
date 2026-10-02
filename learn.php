@@ -50,6 +50,7 @@ include "includes/head.php";
             <a href="dashboard.php">Dashboard</a>
             <a href="translator.php">Translator</a>
             <a href="chat.php">AI Chat</a>
+            <a href="quiz.php">Quiz</a>
             <a href="guides.php">Guides</a>
             <a href="kids.php">Kids</a>
             <a href="blog.php">Blog</a>
