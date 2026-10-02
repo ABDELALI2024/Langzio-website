@@ -126,8 +126,37 @@ function langzio_local_chat_reply(string $userText, string $ragContext): string
 
 function langzio_local_translate_reply(string $userText, string $source, string $target, string $ragContext): string
 {
+    $normalized = strtolower(trim(preg_replace('/\\s+/u', ' ', $userText) ?? $userText));
+    $localTranslations = [
+        'darija:en' => [
+            'ach tma' => [
+                'translation' => "What's there? / What is there?",
+                'pronunciation' => 'ash tma',
+                'context' => 'Casual Darija; use it when asking what is available or happening in a place.',
+            ],
+            'kidayr' => [
+                'translation' => 'How are you? (to a man)',
+                'pronunciation' => 'ki-dayr',
+                'context' => 'Casual greeting addressed to a man.',
+            ],
+            'kidayra' => [
+                'translation' => 'How are you? (to a woman)',
+                'pronunciation' => 'ki-day-ra',
+                'context' => 'Casual greeting addressed to a woman.',
+            ],
+        ],
+    ];
+    $match = $localTranslations["{$source}:{$target}"][$normalized] ?? null;
+
     $lines = [];
-    $lines[] = "Local translation ({$source} → {$target}): {$userText}";
+    if ($match !== null) {
+        $lines[] = $match['translation'];
+        $lines[] = "Say it: {$match['pronunciation']}";
+        $lines[] = "When: {$match['context']}";
+    } else {
+        $lines[] = "Local translation ({$source} → {$target}): {$userText}";
+        $lines[] = 'The AI translator is temporarily unavailable, so this phrase could not be translated locally.';
+    }
     if ($ragContext !== "") {
         $lines[] = "";
         $lines[] = $ragContext;
