@@ -20,7 +20,7 @@ $pageStructuredData = [
     "@id" => LANGZIO_CANONICAL_DOMAIN . "/pricing.php#page",
     "url" => LANGZIO_CANONICAL_DOMAIN . "/pricing.php",
     "name" => "Langzio Pricing Plans",
-    "description" => "Choose your Langzio plan: Free tier with limited access, or Pro for unlimited translations, AI chat, cultural insights, and all guides. No credit card required to start.",
+    "description" => "Choose the Langzio Pro plan for unlimited translations, AI chat, cultural insights, and all guides.",
     "isPartOf" => [
         "@type" => "WebSite",
         "@id" => LANGZIO_CANONICAL_DOMAIN . "#website"
@@ -28,20 +28,11 @@ $pageStructuredData = [
     "mainEntity" => [
         "@type" => "PriceSpecification",
         "priceCurrency" => "USD",
-        "minPrice" => "0",
+        "minPrice" => "9",
         "maxPrice" => "9",
         "billingDuration" => "P1M"
     ],
     "hasPart" => [
-        [
-            "@type" => "Offer",
-            "name" => "Free Plan",
-            "price" => "0",
-            "priceCurrency" => "USD",
-            "availability" => "https://schema.org/InStock",
-            "description" => "Limited translations, basic chat, kids flashcards",
-            "url" => LANGZIO_CANONICAL_DOMAIN . "/register.php"
-        ],
         [
             "@type" => "Offer",
             "name" => "Pro Plan",
@@ -95,28 +86,6 @@ include "includes/head.php";
 
         <section class="dashboard-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))" aria-labelledby="plans-title">
             <h2 id="plans-title" class="visually-hidden">Pricing Plans</h2>
-            <article class="card" style="text-align:center;padding:28px" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                <meta itemprop="name" content="Free Plan">
-                <meta itemprop="price" content="0">
-                <meta itemprop="priceCurrency" content="USD">
-                <meta itemprop="availability" content="https://schema.org/InStock">
-                <link itemprop="url" href="<?php echo LANGZIO_CANONICAL_DOMAIN; ?>/register.php">
-                <h3>Free</h3>
-                <p style="font-size:2rem;font-weight:800;margin:12px 0"><span itemprop="price">$0</span></p>
-                <ul style="list-style:none;padding:0;text-align:left;color:var(--muted)">
-                    <li>✓ Limited translations</li>
-                    <li>✓ Basic chat</li>
-                    <li>✓ Kids flashcards</li>
-                </ul>
-                <?php if ($user && $subStatus["plan"] === "free"): ?>
-                    <span class="badge" style="margin-top:16px" itemprop="description">Current plan</span>
-                <?php else: ?>
-                    <a class="btn btn-secondary" href="<?php echo htmlspecialchars(langzio_url($user ? 'dashboard.php' : 'register.php')); ?>" style="margin-top:16px;display:inline-block" itemprop="url">
-                        <?php echo $user ? "Current plan" : "Start free"; ?>
-                    </a>
-                <?php endif; ?>
-            </article>
-
             <article class="card" style="text-align:center;padding:28px;border-color:var(--green);background:rgba(0,211,139,0.06)" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                 <meta itemprop="name" content="Pro Plan">
                 <meta itemprop="price" content="9">

@@ -12,10 +12,40 @@ class Auth
             session_set_cookie_params([
                 "lifetime" => 0,
                 "path"     => "/",
+                "secure"   => (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") || (($_SERVER["HTTP_X_FORWARDED_PROTO"] ?? "") === "https"),
                 "httponly" => true,
                 "samesite" => "Lax",
             ]);
             session_start();
+        }
+        if (!empty($_SESSION["logged_in_at"]) && (time() - (int) $_SESSION["logged_in_at"]) > 86400) {
+            self::logout();
+        }
+    }
+
+    public static function csrfToken(): string
+    {
+        self::startSession();
+        if (empty($_SESSION["csrf_token"])) {
+            $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
+        }
+        return (string) $_SESSION["csrf_token"];
+    }
+
+    public static function verifyCsrf(?string $token): bool
+    {
+        self::startSession();
+        $headerToken = $_SERVER["HTTP_X_CSRF_TOKEN"] ?? null;
+        $token = $token ?? (is_string($headerToken) ? $headerToken : null);
+        $token = is_string($token) ? trim($token) : null;
+        return is_string($token) && $token !== "" && !empty($_SESSION["csrf_token"]) && hash_equals((string) $_SESSION["csrf_token"], $token);
+    }
+
+    public static function requireCsrf(): void
+    {
+        if (!self::verifyCsrf($_POST["csrf_token"] ?? null)) {
+            http_response_code(419);
+            exit("Invalid security token.");
         }
     }
 
@@ -32,7 +62,14 @@ class Auth
         self::startSession();
         $_SESSION = [];
         $params = session_get_cookie_params();
-        setcookie(session_name(), "", time() - 3600, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+        setcookie(session_name(), "", [
+            "expires" => time() - 3600,
+            "path" => $params["path"],
+            "domain" => $params["domain"],
+            "secure" => $params["secure"],
+            "httponly" => $params["httponly"],
+            "samesite" => $params["samesite"] ?? "Lax",
+        ]);
         session_destroy();
     }
 

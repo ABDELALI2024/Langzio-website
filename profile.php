@@ -11,6 +11,7 @@ $error = "";
 $success = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    Auth::requireCsrf();
     $action = $_POST["action"] ?? "";
 
     if ($action === "whatsapp") {
@@ -155,6 +156,7 @@ include "includes/head.php";
                     ✓ Connected: +<?php echo htmlspecialchars($user["whatsapp_country_code"] . " " . $user["whatsapp_number"]); ?>
                 </p>
                 <form method="post" style="margin-top:10px">
+                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(Auth::csrfToken(), ENT_QUOTES, 'UTF-8'); ?>">
                     <input type="hidden" name="action" value="remove_whatsapp">
                     <button class="btn btn-secondary compact" type="submit">Remove number</button>
                 </form>
@@ -162,6 +164,7 @@ include "includes/head.php";
                 <p style="margin-bottom:12px">Number: +<?php echo htmlspecialchars($user["whatsapp_country_code"] . " " . $user["whatsapp_number"]); ?></p>
                 <p style="color:var(--muted);margin-bottom:12px">Enter the code sent to your WhatsApp to verify:</p>
                 <form method="post" class="auth-form" style="max-width:280px">
+                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(Auth::csrfToken(), ENT_QUOTES, 'UTF-8'); ?>">
                     <input type="hidden" name="action" value="verify_whatsapp">
                     <label>
                         Verification code
@@ -171,6 +174,7 @@ include "includes/head.php";
                 </form>
             <?php else: ?>
                 <form method="post" class="auth-form" style="max-width:360px">
+                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(Auth::csrfToken(), ENT_QUOTES, 'UTF-8'); ?>">
                     <input type="hidden" name="action" value="whatsapp">
                     <div style="display:flex;gap:8px;align-items:end;flex-wrap:wrap">
                         <label style="flex:0 0 90px">

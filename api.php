@@ -1,12 +1,18 @@
 <?php
 header("Content-Type: application/json; charset=utf-8");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
 header("X-Content-Type-Options: nosniff");
 
-$allowedOrigin = "https://langzio.com";
-header("Access-Control-Allow-Origin: " . $allowedOrigin);
+$requestOrigin = trim((string) ($_SERVER["HTTP_ORIGIN"] ?? ""));
+$allowedOrigins = ["https://langzio.com", "https://www.langzio.com"];
+if ($requestOrigin !== "" && in_array($requestOrigin, $allowedOrigins, true)) {
+    header("Access-Control-Allow-Origin: " . $requestOrigin);
+    header("Access-Control-Allow-Credentials: true");
+}
 header("Vary: Origin");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Headers: Content-Type, X-CSRF-Token");
 
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(204);
@@ -22,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 require_once "config.php";
 require_once "classes/Auth.php";
 require_once "includes/langzio-ai.php";
+require_once "classes/TranslationHistory.php";
 
 if (!Auth::check()) {
     http_response_code(401);
@@ -40,7 +47,35 @@ if (!is_array($payload)) {
     exit;
 }
 
+$csrfToken = $_SERVER["HTTP_X_CSRF_TOKEN"] ?? ($payload["csrf_token"] ?? null);
+if (!Auth::verifyCsrf(is_string($csrfToken) ? $csrfToken : null)) {
+    http_response_code(419);
+    echo json_encode([
+        "error" => "Invalid security token",
+        "csrf_token" => Auth::csrfToken(),
+    ]);
+    exit;
+}
+
 $mode = $payload["mode"] ?? "translate";
+$user = Auth::user();
+
+if ($mode === "history") {
+    echo json_encode(["history" => TranslationHistory::listForUser((int) $user["id"])]);
+    exit;
+}
+
+if ($mode === "delete_history") {
+    $historyId = filter_var($payload["id"] ?? null, FILTER_VALIDATE_INT);
+    if (!$historyId) {
+        http_response_code(422);
+        echo json_encode(["error" => "Invalid history item"]);
+        exit;
+    }
+    echo json_encode(["deleted" => TranslationHistory::deleteForUser((int) $user["id"], $historyId)]);
+    exit;
+}
+
 $userText = trim((string) ($payload["text"] ?? ""));
 $source = trim((string) ($payload["source"] ?? "english"));
 $target = trim((string) ($payload["target"] ?? "darija"));
@@ -74,6 +109,9 @@ if (empty(OPENAI_API_KEY)) {
     } else {
         $fallback = langzio_local_translate_reply($userText, $source, $target, $ragContext);
     }
+    if ($mode === "translate") {
+        TranslationHistory::add((int) $user["id"], $source, $target, $userText, $fallback, null);
+    }
     echo json_encode(["reply" => $fallback, "mock" => true, "rag_used" => $ragUsed]);
     exit;
 }
@@ -83,8 +121,13 @@ if ($mode === "chat") {
     $result = langzio_call_ai($messages, 0.5);
 
     if (!$result["ok"]) {
-        http_response_code(500);
-        echo json_encode(["error" => $result["error"]]);
+        echo json_encode([
+            "reply" => langzio_local_chat_reply($userText, $ragContext),
+            "mock" => true,
+            "degraded" => true,
+            "error" => "AI service temporarily unavailable; showing local guidance.",
+            "rag_used" => $ragUsed,
+        ]);
         exit;
     }
 
@@ -100,15 +143,24 @@ $messages = langzio_build_translate_messages($userText, $source, $target, $ragCo
 $result = langzio_call_ai($messages, 0.3);
 
 if (!$result["ok"]) {
-    http_response_code(500);
-    echo json_encode(["error" => $result["error"]]);
+    $fallback = langzio_local_translate_reply($userText, $source, $target, $ragContext);
+    TranslationHistory::add((int) $user["id"], $source, $target, $userText, $fallback, null);
+    echo json_encode([
+        "reply" => $fallback,
+        "mock" => true,
+        "degraded" => true,
+        "error" => "AI service temporarily unavailable; showing local guidance.",
+        "rag_used" => $ragUsed,
+    ]);
     exit;
 }
 
 $structured = langzio_parse_structured_translation($result["content"]);
 if ($structured !== null) {
+    $reply = langzio_format_structured_reply($structured);
+    TranslationHistory::add((int) $user["id"], $source, $target, $userText, $reply, $structured);
     echo json_encode([
-        "reply" => langzio_format_structured_reply($structured),
+        "reply" => $reply,
         "structured" => $structured,
         "mock" => false,
         "rag_used" => $ragUsed,
@@ -116,6 +168,7 @@ if ($structured !== null) {
     exit;
 }
 
+TranslationHistory::add((int) $user["id"], $source, $target, $userText, $result["content"], null);
 echo json_encode([
     "reply" => $result["content"],
     "mock" => false,

@@ -41,6 +41,9 @@ $siteName = LANGZIO_SITE_NAME;
     <meta name="keywords" content="<?php echo htmlspecialchars($pageKeywords, ENT_QUOTES, 'UTF-8'); ?>">
     <meta name="author" content="Langzio">
     <meta name="theme-color" content="#00a76f">
+    <?php if (class_exists("Auth")): ?>
+    <meta name="csrf-token" content="<?php echo htmlspecialchars(Auth::csrfToken(), ENT_QUOTES, 'UTF-8'); ?>">
+    <?php endif; ?>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Langzio">
     
