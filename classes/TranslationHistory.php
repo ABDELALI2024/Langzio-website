@@ -6,16 +6,21 @@ class TranslationHistory
 {
     public static function add(int $userId, string $source, string $target, string $input, string $output, ?array $structured): void
     {
-        $db = Database::connect();
-        $stmt = $db->prepare("INSERT INTO translation_history (user_id, source_language, target_language, input_text, output_text, structured_output) VALUES (:user_id, :source, :target, :input_text, :output_text, :structured_output)");
-        $stmt->execute([
-            "user_id" => $userId,
-            "source" => $source,
-            "target" => $target,
-            "input_text" => $input,
-            "output_text" => $output,
-            "structured_output" => $structured === null ? null : json_encode($structured, JSON_UNESCAPED_UNICODE),
-        ]);
+        // History must never break translation: missing table, full disk, etc.
+        try {
+            $db = Database::connect();
+            $stmt = $db->prepare("INSERT INTO translation_history (user_id, source_language, target_language, input_text, output_text, structured_output) VALUES (:user_id, :source, :target, :input_text, :output_text, :structured_output)");
+            $stmt->execute([
+                "user_id" => $userId,
+                "source" => $source,
+                "target" => $target,
+                "input_text" => $input,
+                "output_text" => $output,
+                "structured_output" => $structured === null ? null : json_encode($structured, JSON_UNESCAPED_UNICODE),
+            ]);
+        } catch (\Throwable $e) {
+            error_log("Langzio history add failed (non-fatal): " . $e->getMessage());
+        }
     }
 
     public static function listForUser(int $userId, int $limit = 30): array

@@ -22,14 +22,21 @@ Verify `.env` and `langzio_hostinger.zip` are NOT in the repo (`git ls-files` mu
 ## 5. Create MySQL database
 Databases → MySQL → create DB + user. Note host (usually `localhost`), db name, user, password.
 
-## 6. Import `database/schema.sql`
-phpMyAdmin → select DB → Import → `database/schema.sql`.
+## 6. Import database files
+phpMyAdmin → select DB → Import, in this order:
+1. `database/schema.sql` (base tables)
+2. `database/migrate_blog_posts.sql` (run ONCE; harmless to re-run)
+3. `database/migrate_translation_history.sql` (run ONCE; required — translate/chat save history)
 (`database/seed.sql` contains commented test data only — do not run in production.)
 
 ## 7. Create `.env`
 File Manager → `public_html/.env` (copy structure from `.env.example`, fill real values):
 ```
-# Optional — local corpus fallback works without it. Fresh key only.
+# AI provider: xAI Groq-compatible (default) or Groq. Fresh keys only, local fallback without.
+AI_PROVIDER=xai
+XAI_API_KEY=
+# XAI_MODEL=grok-4.6
+# GROQ fallback (only with AI_PROVIDER=groq)
 GROQ_API_KEY=
 DB_HOST=localhost
 DB_PORT=3306
@@ -46,6 +53,7 @@ WHATSAPP_PROVIDER=
 WHATSAPP_API_KEY=
 CANONICAL_DOMAIN=https://langzio.com
 CRON_SECRET=   # min 32 random chars, required
+ADMIN_KEY=     # min 32 random chars, required for /admin-blog.php
 ```
 Permissions: `.env` `600`, `data/` writable by PHP for rate-limit/analytics files.
 
@@ -60,7 +68,7 @@ Advanced → Cron Jobs → daily:
 Replace `uXXXX` with your Hostinger username. HTTP access requires `?key=CRON_SECRET`; CLI needs no key. Empty `CRON_SECRET` denies HTTP.
 
 ## 10. Test `/status.php`
-Visit `https://langzio.com/status.php` → expect `{"ok":true,"mode":"local"}`.
+Visit `https://langzio.com/status.php` → expect `{"ok":true,"api_ready":true}` (or `false` without provider key).
 It exposes nothing else (no paths, no keys).
 
 ## 11. Test `/translator/`
@@ -70,13 +78,13 @@ Pretty URL → serves `translator.php` internally (POST preserved). Try a transl
 Pretty URL → serves `guides.php`. Unknown slugs (e.g. `/dictionary/`, `/culture/...`) correctly return `404.php` until those pages exist — do not add them to the sitemap yet.
 
 ## 13. Test authentication
-Register → login → dashboard → logout. Trial banner shows days remaining. No CSRF token yet (known remaining issue); login/register have no rate limit — consider Cloudflare or Hostinger WAF.
+Register → login → dashboard → logout. Forms carry CSRF tokens (419 + fresh token on mismatch, auto-retried by app.js). Login/register have no rate limit — consider Cloudflare or Hostinger WAF.
 
 ## 14. Test database
-Register a user → check `users` + `subscriptions` rows (trial 7 days). Update WhatsApp number in profile → check `users.whatsapp_*` columns.
+Register a user → check `users` + `subscriptions` rows (free plan, no trial). Update WhatsApp number in profile → check `users.whatsapp_*` columns.
 
-## 15. Test AI answers (Groq when configured, local fallback otherwise)
-`POST /api.php` `{"mode":"translate","text":"hello"}` → with valid `GROQ_API_KEY`: rich reply, `mock:false`. Without key: local corpus reply, `mock:true`. Key never appears in JS/network — backend-only call. `/status.php` shows `api_ready` accordingly.
+## 15. Test AI answers (xAI Grok when configured, local fallback otherwise)
+`POST /api.php` `{"mode":"translate","text":"hello"}` → with valid `XAI_API_KEY`: rich reply, `mock:false`. Without key: local corpus reply, `mock:true`. Provider errors degrade gracefully (no 500). Key never appears in JS/network — backend-only call. `/status.php` shows `api_ready` accordingly.
 
 ## 16. Delete debug files
 From `public_html/` delete: `info.php`, `seed.php` (if uploaded), `*.zip`.

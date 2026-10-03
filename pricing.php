@@ -107,9 +107,9 @@ include "includes/head.php";
                 <?php elseif ($user && $paypalConfigured): ?>
                     <div id="paypal-button-container" style="margin-top:16px"></div>
                 <?php elseif ($user): ?>
-                    <p style="margin-top:16px;color:var(--muted);font-size:0.9rem" itemprop="description">Online payment coming soon — your trial covers you for now.</p>
+                    <p style="margin-top:16px;color:var(--muted);font-size:0.9rem" itemprop="description">Online payment coming soon.</p>
                 <?php else: ?>
-                    <a class="btn btn-primary" href="<?php echo htmlspecialchars(langzio_url('register.php')); ?>" style="margin-top:16px;display:inline-block" itemprop="url">Start free trial</a>
+                    <a class="btn btn-primary" href="<?php echo htmlspecialchars(langzio_url('register.php')); ?>" style="margin-top:16px;display:inline-block" itemprop="url">Create free account</a>
                 <?php endif; ?>
             </article>
         </section>
