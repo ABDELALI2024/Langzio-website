@@ -1,4 +1,7 @@
 <?php
+// Never cache: this page embeds a session-bound CSRF token.
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
 // Langzio Blog admin — publishing UI protected by ADMIN_KEY (.env).
 // Set ADMIN_KEY to a long random secret on the server. Never commit it.
 require_once __DIR__ . "/classes/Auth.php";

@@ -1,4 +1,7 @@
 <?php
+// Never cache: this page embeds a session-bound CSRF token.
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
 require_once __DIR__ . "/classes/Auth.php";
 require_once __DIR__ . "/classes/User.php";
 require_once __DIR__ . "/classes/Subscription.php";
