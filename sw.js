@@ -1,4 +1,4 @@
-const CACHE = "langzio-v4";
+const CACHE = "langzio-v5";
 const OFFLINE_ASSETS = [
     "./",
     "./index.php",
@@ -45,6 +45,17 @@ self.addEventListener("fetch", (event) => {
     if (event.request.method !== "GET") return;
     const url = new URL(event.request.url);
     if (url.origin !== self.location.origin) return;
+
+    // Page navigations: always go to the network with a fresh request so
+    // login redirects (302) are followed normally by the browser.
+    // Reusing event.request here would surface an opaqueredirect as a
+    // network error ("redirect mode is not follow"). Offline → homepage.
+    if (event.request.mode === "navigate") {
+        event.respondWith(
+            fetch(event.request.url).catch(() => caches.match("./index.php"))
+        );
+        return;
+    }
 
     event.respondWith(
         caches.match(event.request).then((cached) => {
